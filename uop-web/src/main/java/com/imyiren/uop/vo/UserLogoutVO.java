@@ -1,4 +1,4 @@
-package com.huaysw.crm.vo;
+package com.imyiren.uop.vo;
 
 import lombok.Data;
 

@@ -1,10 +1,10 @@
-package com.huaysw.crm.controller;
+package com.imyiren.uop.controller;
 
 import com.imyiren.uop.application.write.api.CustomerInfoWriteAppService;
 import com.imyiren.uop.application.write.cmd.CustomerSaveCmd;
 import com.imyiren.uop.application.write.dto.CustomerCreateDTO;
-import com.huaysw.crm.convertor.CustomerConvertor;
-import com.huaysw.crm.request.CustomerSaveRequest;
+import com.imyiren.uop.convertor.CustomerConvertor;
+import com.imyiren.uop.request.CustomerSaveRequest;
 import com.imyiren.result.BizResults;
 import com.imyiren.result.base.BizResult;
 import lombok.AllArgsConstructor;

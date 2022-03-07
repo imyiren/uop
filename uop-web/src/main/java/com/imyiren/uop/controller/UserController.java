@@ -1,4 +1,4 @@
-package com.huaysw.crm.controller;
+package com.imyiren.uop.controller;
 
 import com.imyiren.uop.application.read.api.UserInfoReadAppService;
 import com.imyiren.uop.application.base.PageDTO;
@@ -7,10 +7,10 @@ import com.imyiren.uop.application.write.cmd.UserLogoutCmd;
 import com.imyiren.uop.application.read.dto.UserInfoDTO;
 import com.imyiren.uop.application.write.dto.UserLogoutDTO;
 import com.imyiren.uop.application.read.query.UserListPageQuery;
-import com.huaysw.crm.convertor.PageConvertor;
-import com.huaysw.crm.convertor.UserConvertor;
-import com.huaysw.crm.vo.UserInfoVO;
-import com.huaysw.crm.vo.UserLogoutVO;
+import com.imyiren.uop.convertor.PageConvertor;
+import com.imyiren.uop.convertor.UserConvertor;
+import com.imyiren.uop.vo.UserInfoVO;
+import com.imyiren.uop.vo.UserLogoutVO;
 import com.imyiren.result.BizResults;
 import com.imyiren.result.base.BizPageResult;
 import com.imyiren.result.base.BizResult;

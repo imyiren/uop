@@ -1,7 +1,7 @@
-package com.huaysw.crm.convertor;
+package com.imyiren.uop.convertor;
 
 import com.imyiren.uop.application.write.cmd.CustomerSaveCmd;
-import com.huaysw.crm.request.CustomerSaveRequest;
+import com.imyiren.uop.request.CustomerSaveRequest;
 
 public abstract class CustomerConvertor{
     public static CustomerSaveCmd toCustomerSaveCmd(CustomerSaveRequest request) {

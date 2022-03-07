@@ -1,4 +1,4 @@
-package com.huaysw.crm.request;
+package com.imyiren.uop.request;
 
 import lombok.Data;
 

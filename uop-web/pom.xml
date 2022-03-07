@@ -45,7 +45,7 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <!-- 指定该Main Class为全局的唯一入口 -->
-                    <mainClass>com.huaysw.crm.UopApplication</mainClass>
+                    <mainClass>com.imyiren.uop.UopApplication</mainClass>
                     <layout>ZIP</layout>
                     <fork>true</fork>
                 </configuration>

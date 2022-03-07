@@ -1,4 +1,4 @@
-package com.huaysw.crm.convertor;
+package com.imyiren.uop.convertor;
 
 import com.imyiren.uop.application.base.PageDTO;
 import com.imyiren.result.BizPageResults;

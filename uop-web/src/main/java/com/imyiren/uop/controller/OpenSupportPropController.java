@@ -1,9 +1,9 @@
-package com.huaysw.crm.controller;
+package com.imyiren.uop.controller;
 
 import com.imyiren.uop.application.read.api.SupportPropReadAppService;
 import com.imyiren.uop.application.read.dto.SupportPropDTO;
 import com.imyiren.uop.application.read.query.SupportPropListQuery;
-import com.huaysw.crm.vo.SupportPropVO;
+import com.imyiren.uop.vo.SupportPropVO;
 import com.imyiren.result.BizResults;
 import com.imyiren.result.base.BizResult;
 import lombok.AllArgsConstructor;

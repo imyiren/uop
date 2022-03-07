@@ -1,11 +1,11 @@
-package com.huaysw.crm.convertor;
+package com.imyiren.uop.convertor;
 
 import com.imyiren.uop.application.write.cmd.UserLoginCmd;
 import com.imyiren.uop.application.read.dto.UserInfoDTO;
 import com.imyiren.uop.application.write.dto.UserLoginDTO;
-import com.huaysw.crm.request.UserLoginRequest;
-import com.huaysw.crm.vo.UserInfoVO;
-import com.huaysw.crm.vo.UserLoginVO;
+import com.imyiren.uop.request.UserLoginRequest;
+import com.imyiren.uop.vo.UserInfoVO;
+import com.imyiren.uop.vo.UserLoginVO;
 
 import java.util.Objects;
 
