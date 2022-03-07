@@ -56,8 +56,8 @@ public abstract class UserConvertor {
         // userInfoVO.setStateDesc();
         userInfoVO.setRoleList(Lists.newArrayList("admin","user"));
         userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
-        userInfoVO.setTitle("测试title");
-        userInfoVO.setWorkNo("工号");
+        userInfoVO.setTitle("超级管理员");
+        userInfoVO.setWorkNo("000001");
         return userInfoVO;
     }
 
