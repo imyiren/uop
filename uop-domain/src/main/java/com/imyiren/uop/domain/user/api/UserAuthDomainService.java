@@ -20,7 +20,7 @@ public interface UserAuthDomainService {
      * @param event session创建事件
      * @return user session
      */
-    boolean deleteSession(DeleteUserSessionEvent event);
+    boolean expireSession(DeleteUserSessionEvent event);
 
 
 }

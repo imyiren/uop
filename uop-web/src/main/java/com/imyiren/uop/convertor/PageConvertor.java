@@ -1,6 +1,6 @@
 package com.imyiren.uop.convertor;
 
-import com.imyiren.uop.application.base.PageDTO;
+import com.imyiren.application.api.dto.PageDTO;
 import com.imyiren.result.BizPageResults;
 import com.imyiren.result.base.BizPageResult;
 import org.springframework.util.CollectionUtils;
@@ -20,7 +20,7 @@ public abstract class PageConvertor {
             return BizPageResults.success(null, 1, null, 0L);
         }
         List<T> result = source.getDataList().stream().map(function).collect(Collectors.toList());
-        return BizPageResults.success(result, source.getPageNum(), source.getPageSize(), source.getTotal());
+        return BizPageResults.success(result, source.getPageNum(), source.getPageSize(), source.getTotalSize());
     }
 
 }

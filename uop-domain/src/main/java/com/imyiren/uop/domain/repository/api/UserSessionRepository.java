@@ -11,7 +11,7 @@ public interface UserSessionRepository {
      * @param query 查询信息
      * @return session结果
      */
-    UserSessionDO getByQuery(UserSessionQuery query);
+    UserSessionDO get(UserSessionQuery query);
 
 
     /**
@@ -21,5 +21,6 @@ public interface UserSessionRepository {
      * @return session
      */
     UserSessionDO save(UserSessionDO userSession);
+
 
 }

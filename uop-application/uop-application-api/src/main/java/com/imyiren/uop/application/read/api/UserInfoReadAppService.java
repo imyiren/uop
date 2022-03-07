@@ -1,7 +1,10 @@
 package com.imyiren.uop.application.read.api;
 
-import com.imyiren.uop.application.base.PageDTO;
+import com.imyiren.application.api.dto.PageDTO;
 import com.imyiren.uop.application.read.dto.UserInfoDTO;
+import com.imyiren.uop.application.read.dto.UserSessionInfoDTO;
+import com.imyiren.uop.application.read.query.UserGetQuery;
+import com.imyiren.uop.application.read.query.UserInfoGetByValidSessionQuery;
 import com.imyiren.uop.application.read.query.UserListPageQuery;
 
 /**
@@ -22,6 +25,14 @@ public interface UserInfoReadAppService {
      *
      * @return 用户信息
      */
-    UserInfoDTO getBySessionId(String sessionId);
+    UserInfoDTO get(UserGetQuery userGetQuery);
+
+
+    /**
+     * 通过SessionId获取用户和session信息
+     * @param query 查询参数
+     * @return 用户信息及session信息
+     */
+    UserSessionInfoDTO getByValidSession(UserInfoGetByValidSessionQuery query);
 
 }

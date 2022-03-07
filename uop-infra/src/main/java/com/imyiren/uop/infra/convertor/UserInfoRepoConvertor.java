@@ -11,18 +11,19 @@ public abstract class UserInfoRepoConvertor {
 
     public static UserInfoDO toUserDO(UopUser uopUser) {
         UserInfoDO userInfoDO = new UserInfoDO();
-        userInfoDO.setId(uopUser.getId());
         userInfoDO.setCode(uopUser.getCode());
         userInfoDO.setUsername(uopUser.getUsername());
-        userInfoDO.setPhone(uopUser.getPhone());
+        userInfoDO.setId(uopUser.getId());
         userInfoDO.setEmail(uopUser.getEmail());
         userInfoDO.setEncryptedPwd(uopUser.getEncryptedPwd());
+        userInfoDO.setPhone(uopUser.getPhone());
         userInfoDO.setNickname(uopUser.getNickname());
         userInfoDO.setState(uopUser.getState());
         userInfoDO.setDeleted(uopUser.getDeleted());
         userInfoDO.setCreateTime(uopUser.getCreateTime());
         userInfoDO.setUpdateTime(uopUser.getUpdateTime());
         return userInfoDO;
+
     }
 
     public static UopUser toUopUser(UserInfoDO userInfoDO) {

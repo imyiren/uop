@@ -25,8 +25,8 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
     private final UopUserDAO uopUserDAO;
 
     @Override
-    public UserInfoDO getByQuery(UserInfoQuery query) {
-        UopUser user = uopUserDAO.getByQuery(query);
+    public UserInfoDO get(UserInfoQuery query) {
+        UopUser user = uopUserDAO.get(query);
         if (Objects.isNull(user)) {
             return null;
         }
@@ -34,8 +34,8 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
     }
 
     @Override
-    public List<UserInfoDO> listByQuery(UserInfoQuery query) {
-        List<UopUser> uopUserList = uopUserDAO.listByQuery(query);
+    public List<UserInfoDO> list(UserInfoQuery query) {
+        List<UopUser> uopUserList = uopUserDAO.list(query);
         if (CollectionUtils.isEmpty(uopUserList)) {
             return Lists.newArrayList();
         }

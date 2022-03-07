@@ -59,11 +59,9 @@ public class UserInfoWriteAppServiceImpl implements UserInfoWriteAppService {
 
     @Override
     public UserLogoutDTO logout(UserLogoutCmd cmd) {
-        log.info("logout: cmd: {}", cmd);
-
         DeleteUserSessionEvent deleteUserSessionEvent = new DeleteUserSessionEvent();
         deleteUserSessionEvent.setSessionId(cmd.getSessionId());
-        boolean result = userAuthDomainService.deleteSession(deleteUserSessionEvent);
+        boolean result = userAuthDomainService.expireSession(deleteUserSessionEvent);
 
         UserLogoutDTO userLogoutDTO = new UserLogoutDTO();
         userLogoutDTO.setSuccess(result);

@@ -19,7 +19,6 @@
     update_time
   </sql>
 
-
   <sql id="query">
     <where>
       <if test="id != null">AND `id` = #{id}</if>
@@ -40,28 +39,28 @@
     </where>
   </sql>
 
-
-  <select id="getByQuery" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from uop_user
-    <include refid="query" />
-    limit 1;
-  </select>
-
-  <select id="listByQuery" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from uop_user
-    <include refid="query" />
-  </select>
-
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from uop_user
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="get"   resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from uop_user
+    <include refid="query" />
+    limit 1
+  </select>
+
+  <select id="list"   resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from uop_user
+    <include refid="query" />
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from uop_user
     where id = #{id,jdbcType=BIGINT}

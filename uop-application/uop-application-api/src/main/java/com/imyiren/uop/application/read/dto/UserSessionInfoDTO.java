@@ -4,17 +4,27 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author yiren
  */
 @Data
-public class UserInfoDTO implements Serializable {
+public class UserSessionInfoDTO implements Serializable {
+
     /**
-     * 主键ID
+     * sessionId
      */
-    private Long id;
+    private String sessionId;
+
+    /**
+     * 过期时间
+     */
+    private LocalDateTime expireTime;
+
+    /**
+     * 用户ID
+     */
+    private Long userId;
 
     /**
      * 全局唯一编码
@@ -65,4 +75,6 @@ public class UserInfoDTO implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+
 }

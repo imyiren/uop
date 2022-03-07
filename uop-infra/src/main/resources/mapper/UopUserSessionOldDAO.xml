@@ -25,8 +25,7 @@
   </sql>
 
 
-
-  <select id="getByQuery"  resultMap="BaseResultMap">
+  <select id="get" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from uop_user_session

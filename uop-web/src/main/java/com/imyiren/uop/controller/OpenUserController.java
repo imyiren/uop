@@ -1,6 +1,5 @@
 package com.imyiren.uop.controller;
 
-import com.imyiren.uop.application.read.api.UserInfoReadAppService;
 import com.imyiren.uop.application.write.api.UserInfoWriteAppService;
 import com.imyiren.uop.application.write.cmd.UserCreateCmd;
 import com.imyiren.uop.application.write.cmd.UserLoginCmd;

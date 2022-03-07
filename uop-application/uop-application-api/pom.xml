@@ -22,16 +22,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>5.4.1.Final</version>
-            <scope>provided</scope>
+            <groupId>com.imyiren</groupId>
+            <artifactId>yiren-application-api</artifactId>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

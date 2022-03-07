@@ -24,9 +24,9 @@ public class UserSessionRepositoryImpl implements UserSessionRepository {
     private final UopUserSessionDAO uopUserSessionDAO;
 
     @Override
-    public UserSessionDO getByQuery(UserSessionQuery query){
+    public UserSessionDO get(UserSessionQuery query){
         query.setDeleted(DeleteEnum.NOT_DELETED.getCode());
-        UopUserSession userSession = uopUserSessionDAO.getByQuery(query);
+        UopUserSession userSession = uopUserSessionDAO.get(query);
         if (Objects.isNull(userSession)) {
             return null;
         }

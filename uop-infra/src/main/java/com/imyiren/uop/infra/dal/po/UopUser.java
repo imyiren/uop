@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * uop_user
- * @author 
+ * @author
  */
 @Data
 public class UopUser implements Serializable {
@@ -18,32 +18,32 @@ public class UopUser implements Serializable {
     /**
      * 全局唯一编码
      */
-    private Integer code;
+    private String code;
 
     /**
      * 用户名
      */
-    private Integer username;
+    private String username;
 
     /**
      * 手机号
      */
-    private Integer phone;
+    private String phone;
 
     /**
      * 邮箱
      */
-    private Integer email;
+    private String email;
 
     /**
      * 加密后的密码
      */
-    private Integer encryptedPwd;
+    private String encryptedPwd;
 
     /**
      * 昵称
      */
-    private Integer nickname;
+    private String nickname;
 
     /**
      * 用户账号状态 100-正常 200-停用 300-注销

@@ -16,7 +16,7 @@ public interface UserInfoRepository {
      * @param query 查询参数
      * @return 用户信息
      */
-    UserInfoDO getByQuery(UserInfoQuery query);
+    UserInfoDO get(UserInfoQuery query);
 
 
     /**
@@ -25,7 +25,7 @@ public interface UserInfoRepository {
      * @param query 用户信息查询参数
      * @return 用户信息列表
      */
-    List<UserInfoDO> listByQuery(UserInfoQuery query);
+    List<UserInfoDO> list(UserInfoQuery query);
 
 
     /**

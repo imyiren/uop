@@ -2,9 +2,11 @@ package com.imyiren.uop.infra.dal.dao;
 
 import com.imyiren.uop.domain.repository.query.UserInfoQuery;
 import com.imyiren.uop.infra.dal.po.UopUser;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface UopUserDAO {
     int deleteByPrimaryKey(Long id);
 
@@ -18,18 +20,8 @@ public interface UopUserDAO {
 
     int updateByPrimaryKey(UopUser record);
 
-    /**
-     * 单个查询
-     *
-     * @param userInfoQuery 查询参数
-     * @return 单个结果
-     */
-    UopUser getByQuery(UserInfoQuery userInfoQuery);
+    UopUser get(UserInfoQuery query);
 
-    /**
-     * 批量查询
-     * @param userInfoQuery 查询参数
-     * @return 列表结果
-     */
-    List<UopUser> listByQuery(UserInfoQuery userInfoQuery);
+    List<UopUser> list(UserInfoQuery query);
+
 }

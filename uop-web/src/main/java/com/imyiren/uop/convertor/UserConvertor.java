@@ -1,5 +1,7 @@
 package com.imyiren.uop.convertor;
 
+import com.google.common.collect.Lists;
+import com.imyiren.uop.application.read.dto.UserSessionInfoDTO;
 import com.imyiren.uop.application.write.cmd.UserCreateCmd;
 import com.imyiren.uop.application.write.cmd.UserLoginCmd;
 import com.imyiren.uop.application.read.dto.UserInfoDTO;
@@ -40,25 +42,24 @@ public abstract class UserConvertor {
         return userLoginCmd;
     }
 
-    public static UserInfoVO toUserInfoVO(UserInfoDTO userInfoDTO) {
-        if (Objects.isNull(userInfoDTO)) {
+    public static UserInfoVO toUserInfoVO(UserSessionInfoDTO userSession) {
+        if (Objects.isNull(userSession)) {
             return null;
         }
         UserInfoVO userInfoVO = new UserInfoVO();
-        userInfoVO.setId(Objects.isNull(userInfoDTO.getId()) ? null : String.valueOf(userInfoDTO.getId()));
-        userInfoVO.setRealName(userInfoDTO.getRealName());
-        userInfoVO.setUsername(userInfoDTO.getUsername());
-        userInfoVO.setPhone(userInfoDTO.getPhone());
-        userInfoVO.setEmail(userInfoDTO.getEmail());
-        userInfoVO.setState(userInfoDTO.getState());
-        userInfoVO.setStateDesc(userInfoDTO.getStateDesc());
-        userInfoVO.setRoleList(userInfoDTO.getRoleList());
-        userInfoVO.setAvatarUrl(userInfoDTO.getAvatarUrl());
-        userInfoVO.setTitle(userInfoDTO.getTitle());
-        userInfoVO.setWorkNo(userInfoDTO.getWorkNo());
+        userInfoVO.setId(Objects.isNull(userSession.getUserId()) ? null : String.valueOf(userSession.getUserId()));
+        userInfoVO.setRealName(userSession.getNickname());
+        userInfoVO.setUsername(userSession.getUsername());
+        userInfoVO.setPhone(userSession.getPhone());
+        userInfoVO.setEmail(userSession.getEmail());
+        userInfoVO.setState(userSession.getState());
+        // userInfoVO.setStateDesc();
+        userInfoVO.setRoleList(Lists.newArrayList("admin","user"));
+        userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
+        userInfoVO.setTitle("测试title");
+        userInfoVO.setWorkNo("工号");
         return userInfoVO;
     }
-
 
     public static UserCreateCmd toUserCreateCmd(UserRegisterRequest request) {
         if (Objects.isNull(request)) {

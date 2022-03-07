@@ -2,7 +2,9 @@ package com.imyiren.uop.infra.dal.dao;
 
 import com.imyiren.uop.domain.repository.query.UserSessionQuery;
 import com.imyiren.uop.infra.dal.po.UopUserSession;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface UopUserSessionDAO {
     int deleteByPrimaryKey(Long id);
 
@@ -22,5 +24,5 @@ public interface UopUserSessionDAO {
      * @param userSessionQuery 查询条件
      * @return session信息
      */
-    UopUserSession getByQuery(UserSessionQuery userSessionQuery);
+    UopUserSession get(UserSessionQuery userSessionQuery);
 }
