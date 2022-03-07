@@ -1,19 +1,18 @@
 package com.imyiren.uop.infra.repository;
 
 import com.google.common.collect.Lists;
-import com.imyiren.uop.infra.dal.dao.UserDAO;
-import com.imyiren.uop.infra.enums.DeleteEnum;
-import com.imyiren.uop.domain.repository.entity.UserDO;
-import com.imyiren.uop.infra.convertor.UserRepoConvertor;
-import com.imyiren.uop.domain.repository.query.UserGetQuery;
+import com.imyiren.uop.domain.repository.entity.UserInfoDO;
+import com.imyiren.uop.domain.repository.query.UserInfoQuery;
 import com.imyiren.uop.domain.repository.api.UserInfoRepository;
-import com.imyiren.uop.infra.dal.po.UserPO;
-import com.imyiren.uop.infra.dal.query.UserQuery;
+import com.imyiren.uop.infra.convertor.UserInfoRepoConvertor;
+import com.imyiren.uop.infra.dal.dao.UopUserDAO;
+import com.imyiren.uop.infra.dal.po.UopUser;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -23,30 +22,39 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserInfoRepositoryImpl implements UserInfoRepository {
 
-    private final UserDAO userDAO;
+    private final UopUserDAO uopUserDAO;
 
     @Override
-    public UserDO getByQuery(UserGetQuery query) {
-        if (query == null) {
+    public UserInfoDO getByQuery(UserInfoQuery query) {
+        UopUser user = uopUserDAO.getByQuery(query);
+        if (Objects.isNull(user)) {
             return null;
         }
-        UserQuery userQuery = UserRepoConvertor.toUserQuery(query);
-        userQuery.setDeleted(DeleteEnum.NOT_DELETED.getCode());
-        return UserRepoConvertor.toUserDO(userDAO.getByQuery(userQuery));
+        return UserInfoRepoConvertor.toUserDO(user);
     }
 
     @Override
-    public List<UserDO> listByQuery(UserGetQuery query) {
-        if (query == null) {
-            return null;
-        }
-        UserQuery userQuery = UserRepoConvertor.toUserQuery(query);
-        userQuery.setDeleted(DeleteEnum.NOT_DELETED.getCode());
-        List<UserPO> userList = userDAO.listByQuery(userQuery);
-        if (CollectionUtils.isEmpty(userList)) {
+    public List<UserInfoDO> listByQuery(UserInfoQuery query) {
+        List<UopUser> uopUserList = uopUserDAO.listByQuery(query);
+        if (CollectionUtils.isEmpty(uopUserList)) {
             return Lists.newArrayList();
         }
-        return userList.stream().map(UserRepoConvertor::toUserDO).collect(Collectors.toList());
+        return uopUserList.stream().map(UserInfoRepoConvertor::toUserDO).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserInfoDO save(UserInfoDO user) {
+        if (Objects.isNull(user)) {
+            return null;
+        }
+        UopUser uopUser = UserInfoRepoConvertor.toUopUser(user);
+        if (Objects.isNull(user.getId())) {
+            uopUserDAO.insertSelective(uopUser);
+            user.setId(uopUser.getId());
+            return user;
+        }
+        uopUserDAO.updateByPrimaryKeySelective(null);
+        return user;
     }
 
 }

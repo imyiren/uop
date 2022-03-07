@@ -9,39 +9,44 @@ import java.time.LocalDateTime;
  * @author yiren
  */
 @Data
-public class UserDO implements Serializable {
+public class UserInfoDO implements Serializable {
     /**
      * 主键ID
      */
     private Long id;
 
     /**
-     * 编码
+     * 全局唯一编码
      */
-    private String code;
+    private Integer code;
 
     /**
-     * 用户名 创建用户 默认使用手机号
+     * 用户名
      */
-    private String username;
-
-    /**
-     * 加密后的密码
-     */
-    private String encryptedPwd;
+    private Integer username;
 
     /**
      * 手机号
      */
-    private String phone;
+    private Integer phone;
 
     /**
      * 邮箱
      */
-    private String email;
+    private Integer email;
 
     /**
-     * 用户状态
+     * 加密后的密码
+     */
+    private Integer encryptedPwd;
+
+    /**
+     * 昵称
+     */
+    private Integer nickname;
+
+    /**
+     * 用户账号状态 100-正常 200-停用 300-注销
      */
     private Integer state;
 
@@ -59,5 +64,6 @@ public class UserDO implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
 
 }

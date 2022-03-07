@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserInfoReadAppServiceImpl implements UserInfoReadAppService {
 
-
     @Override
     public PageDTO<UserInfoDTO> listPageByQuery(UserListPageQuery userListPageQuery) {
         return null;

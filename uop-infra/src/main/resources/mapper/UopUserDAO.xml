@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.imyiren.uop.infra.dal.dao.UserDAO">
-  <resultMap id="BaseResultMap" type="com.imyiren.uop.infra.dal.po.UserPO">
+<mapper namespace="com.imyiren.uop.infra.dal.dao.UopUserDAO">
+  <resultMap id="BaseResultMap" type="com.imyiren.uop.infra.dal.po.UopUser">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="encrypted_pwd" jdbcType="VARCHAR" property="encryptedPwd" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="code" jdbcType="INTEGER" property="code" />
+    <result column="username" jdbcType="INTEGER" property="username" />
+    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="email" jdbcType="INTEGER" property="email" />
+    <result column="encrypted_pwd" jdbcType="INTEGER" property="encryptedPwd" />
+    <result column="nickname" jdbcType="INTEGER" property="nickname" />
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="deleted" jdbcType="INTEGER" property="deleted" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, code, username, encrypted_pwd, phone, email, `state`, deleted, create_time, update_time
+    id, code, username, phone, email, encrypted_pwd, nickname, `state`, deleted, create_time,
+    update_time
   </sql>
+
 
   <sql id="query">
     <where>
@@ -37,41 +40,44 @@
     </where>
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from user
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+
   <select id="getByQuery" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from user
-    <include refid="query"/>
-    limit 1
+    from uop_user
+    <include refid="query" />
+    limit 1;
   </select>
-  <select id="listByQuery"  resultMap="BaseResultMap">
+
+  <select id="listByQuery" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from user
-    <include refid="query"/>
+    from uop_user
+    <include refid="query" />
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from uop_user
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from user
+    delete from uop_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.imyiren.uop.infra.dal.po.UserPO" useGeneratedKeys="true">
-    insert into user (code, username, encrypted_pwd,
-      phone, email, `state`,
-      deleted, create_time, update_time
-      )
-    values (#{code,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{encryptedPwd,jdbcType=VARCHAR},
-      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
-      #{deleted,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.imyiren.uop.infra.dal.po.UopUser" useGeneratedKeys="true">
+    insert into uop_user (code, username, phone,
+      email, encrypted_pwd, nickname,
+      `state`, deleted, create_time,
+      update_time)
+    values (#{code,jdbcType=INTEGER}, #{username,jdbcType=INTEGER}, #{phone,jdbcType=INTEGER},
+      #{email,jdbcType=INTEGER}, #{encryptedPwd,jdbcType=INTEGER}, #{nickname,jdbcType=INTEGER},
+      #{state,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.imyiren.uop.infra.dal.po.UserPO" useGeneratedKeys="true">
-    insert into user
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.imyiren.uop.infra.dal.po.UopUser" useGeneratedKeys="true">
+    insert into uop_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="code != null">
         code,
@@ -79,14 +85,17 @@
       <if test="username != null">
         username,
       </if>
-      <if test="encryptedPwd != null">
-        encrypted_pwd,
-      </if>
       <if test="phone != null">
         phone,
       </if>
       <if test="email != null">
         email,
+      </if>
+      <if test="encryptedPwd != null">
+        encrypted_pwd,
+      </if>
+      <if test="nickname != null">
+        nickname,
       </if>
       <if test="state != null">
         `state`,
@@ -103,19 +112,22 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="code != null">
-        #{code,jdbcType=VARCHAR},
+        #{code,jdbcType=INTEGER},
       </if>
       <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="encryptedPwd != null">
-        #{encryptedPwd,jdbcType=VARCHAR},
+        #{username,jdbcType=INTEGER},
       </if>
       <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
+        #{phone,jdbcType=INTEGER},
       </if>
       <if test="email != null">
-        #{email,jdbcType=VARCHAR},
+        #{email,jdbcType=INTEGER},
+      </if>
+      <if test="encryptedPwd != null">
+        #{encryptedPwd,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=INTEGER},
       </if>
       <if test="state != null">
         #{state,jdbcType=INTEGER},
@@ -131,23 +143,26 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.imyiren.uop.infra.dal.po.UserPO">
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="com.imyiren.uop.infra.dal.po.UopUser">
+    update uop_user
     <set>
       <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
+        code = #{code,jdbcType=INTEGER},
       </if>
       <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="encryptedPwd != null">
-        encrypted_pwd = #{encryptedPwd,jdbcType=VARCHAR},
+        username = #{username,jdbcType=INTEGER},
       </if>
       <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=INTEGER},
       </if>
       <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+        email = #{email,jdbcType=INTEGER},
+      </if>
+      <if test="encryptedPwd != null">
+        encrypted_pwd = #{encryptedPwd,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=INTEGER},
       </if>
       <if test="state != null">
         `state` = #{state,jdbcType=INTEGER},
@@ -164,13 +179,14 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.imyiren.uop.infra.dal.po.UserPO">
-    update user
-    set code = #{code,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
-      encrypted_pwd = #{encryptedPwd,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.imyiren.uop.infra.dal.po.UopUser">
+    update uop_user
+    set code = #{code,jdbcType=INTEGER},
+      username = #{username,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=INTEGER},
+      email = #{email,jdbcType=INTEGER},
+      encrypted_pwd = #{encryptedPwd,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=INTEGER},
       `state` = #{state,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},

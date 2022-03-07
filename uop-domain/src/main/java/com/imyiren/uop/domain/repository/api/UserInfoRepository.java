@@ -1,7 +1,7 @@
 package com.imyiren.uop.domain.repository.api;
 
-import com.imyiren.uop.domain.repository.entity.UserDO;
-import com.imyiren.uop.domain.repository.query.UserGetQuery;
+import com.imyiren.uop.domain.repository.entity.UserInfoDO;
+import com.imyiren.uop.domain.repository.query.UserInfoQuery;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface UserInfoRepository {
      * @param query 查询参数
      * @return 用户信息
      */
-    UserDO getByQuery(UserGetQuery query);
+    UserInfoDO getByQuery(UserInfoQuery query);
 
 
     /**
@@ -25,5 +25,15 @@ public interface UserInfoRepository {
      * @param query 用户信息查询参数
      * @return 用户信息列表
      */
-    List<UserDO> listByQuery(UserGetQuery query);
+    List<UserInfoDO> listByQuery(UserInfoQuery query);
+
+
+    /**
+     * 保存 带ID就update 不带就insert
+     *
+     * @param userInfoDO 保存
+     * @return 保存结果 如果是insert就返回带ID带对象
+     */
+    UserInfoDO save(UserInfoDO userInfoDO);
+
 }

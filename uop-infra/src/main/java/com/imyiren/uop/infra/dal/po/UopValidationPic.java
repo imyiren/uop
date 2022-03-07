@@ -5,30 +5,32 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
- * org_dept
- * @author
+ * uop_validation_pic
+ * 图片校验码
+ *
+ * @author yiren
  */
 @Data
-public class OrgDeptPO implements Serializable {
+public class UopValidationPic implements Serializable {
     /**
      * 主键ID
      */
     private Long id;
 
     /**
-     * 父级ID -1时为根节点
+     * 校验KEY
      */
-    private Long parentDeptId;
+    private String picKey;
 
     /**
-     * 所属组织
+     * 校验码
      */
-    private Long orgId;
+    private String picCode;
 
     /**
-     * 部门名称
+     * 状态 100-已生成待验证 200-验证成功 300-失效
      */
-    private String deptName;
+    private Integer state;
 
     /**
      * 删除状态 1-删除 2-未删除

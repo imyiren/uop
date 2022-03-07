@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * @author yiren
  */
 @Data
-public class UserListQuery implements Serializable {
+public class UserInfoQuery implements Serializable {
     /**
      * 主键ID
      */
@@ -63,4 +63,6 @@ public class UserListQuery implements Serializable {
     private LocalDateTime updateTime;
     private LocalDateTime updateTimeStart;
     private LocalDateTime updateTimeEnd;
+
+
 }

@@ -3,24 +3,24 @@ package com.imyiren.uop.application.convertor;
 import com.google.common.collect.Lists;
 import com.imyiren.uop.application.read.dto.UserInfoDTO;
 import com.imyiren.uop.application.read.query.UserListPageQuery;
-import com.imyiren.uop.domain.repository.entity.UserDO;
-import com.imyiren.uop.domain.repository.query.UserGetQuery;
+import com.imyiren.uop.domain.repository.entity.UserInfoDO;
+import com.imyiren.uop.domain.repository.query.UserInfoQuery;
 
 /**
  * @author yiren
  */
 public class UserAppConvertor {
 
-    public static UserGetQuery toUserInfoQuery(UserListPageQuery query) {
-        UserGetQuery userGetQuery = new UserGetQuery();
-        userGetQuery.setUsername(query.getUsername());
-        userGetQuery.setPhone(query.getPhone());
-        userGetQuery.setEmail(query.getEmail());
-        return userGetQuery;
+    public static UserInfoQuery toUserInfoQuery(UserListPageQuery query) {
+        UserInfoQuery userInfoQuery = new UserInfoQuery();
+        userInfoQuery.setUsername(query.getUsername());
+        userInfoQuery.setPhone(query.getPhone());
+        userInfoQuery.setEmail(query.getEmail());
+        return userInfoQuery;
     }
 
 
-    public static UserInfoDTO toUserInfoDTO(UserDO user) {
+    public static UserInfoDTO toUserInfoDTO(UserInfoDO user) {
 
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setRoleList(Lists.newArrayList("admin", "user"));

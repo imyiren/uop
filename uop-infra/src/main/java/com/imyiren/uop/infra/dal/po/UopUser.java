@@ -5,30 +5,50 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
- * common_prop
- * @author
+ * uop_user
+ * @author 
  */
 @Data
-public class CommonPropPO implements Serializable {
+public class UopUser implements Serializable {
     /**
      * 主键ID
      */
     private Long id;
 
     /**
-     * 参数编码
+     * 全局唯一编码
      */
-    private String code;
+    private Integer code;
 
     /**
-     * KEY 会有一对多的场景
+     * 用户名
      */
-    private String key;
+    private Integer username;
 
     /**
-     * 值
+     * 手机号
      */
-    private String value;
+    private Integer phone;
+
+    /**
+     * 邮箱
+     */
+    private Integer email;
+
+    /**
+     * 加密后的密码
+     */
+    private Integer encryptedPwd;
+
+    /**
+     * 昵称
+     */
+    private Integer nickname;
+
+    /**
+     * 用户账号状态 100-正常 200-停用 300-注销
+     */
+    private Integer state;
 
     /**
      * 删除状态 1-删除 2-未删除

@@ -1,8 +1,8 @@
 package com.imyiren.uop.domain.user.service;
 
 import com.imyiren.uop.domain.repository.api.UserInfoRepository;
-import com.imyiren.uop.domain.repository.entity.UserDO;
-import com.imyiren.uop.domain.repository.query.UserGetQuery;
+import com.imyiren.uop.domain.repository.entity.UserInfoDO;
+import com.imyiren.uop.domain.repository.query.UserInfoQuery;
 import com.imyiren.uop.domain.user.api.UserAuthDomainService;
 import com.imyiren.uop.domain.user.event.CreateUserSessionEvent;
 import com.imyiren.uop.domain.user.event.DeleteUserSessionEvent;
@@ -30,9 +30,9 @@ public class UserAuthDomainServiceImpl implements UserAuthDomainService {
     public String createUserSession(CreateUserSessionEvent event) {
 
         // 获取用户信息
-        UserGetQuery userGetQuery = new UserGetQuery();
-        userGetQuery.setUsername(event.getUsername());
-        UserDO userInfo = userInfoRepository.getByQuery(userGetQuery);
+        UserInfoQuery userInfoQuery = new UserInfoQuery();
+        userInfoQuery.setUsername(event.getUsername());
+        UserInfoDO userInfo = userInfoRepository.getByQuery(userInfoQuery);
 
         // 验证密码
         if (Objects.isNull(userInfo) || !passwordEncoder.matches(event.getPassword(), userInfo.getEncryptedPwd())) {

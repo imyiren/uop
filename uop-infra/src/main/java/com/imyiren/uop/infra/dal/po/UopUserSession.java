@@ -5,35 +5,30 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
- * org_employee_info
- * @author
+ * uop_user_session
+ * @author yiren
  */
 @Data
-public class OrgEmployeeInfoPO implements Serializable {
+public class UopUserSession implements Serializable {
     /**
      * 主键ID
      */
     private Long id;
 
     /**
-     * 组织ID
+     * sessionId
      */
-    private Long orgId;
+    private String sessionId;
 
     /**
-     * 部门ID
+     * 用户ID
      */
-    private Long deptId;
+    private Long userId;
 
     /**
-     * 工号
+     * 过期时间
      */
-    private String workNo;
-
-    /**
-     * 姓名
-     */
-    private String realName;
+    private LocalDateTime expireTime;
 
     /**
      * 删除状态 1-删除 2-未删除
