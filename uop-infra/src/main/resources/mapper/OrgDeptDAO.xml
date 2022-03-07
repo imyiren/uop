@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imyiren.uop.infra.dal.dao.OrgDeptDAO">
+  <resultMap id="BaseResultMap" type="com.imyiren.uop.infra.dal.po.OrgDeptPO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="parent_dept_id" jdbcType="BIGINT" property="parentDeptId" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parent_dept_id, org_id, dept_name, deleted, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_dept
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from org_dept
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.imyiren.uop.infra.dal.po.OrgDeptPO" useGeneratedKeys="true">
+    insert into org_dept (parent_dept_id, org_id, dept_name,
+      deleted, create_time, update_time
+      )
+    values (#{parentDeptId,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR},
+      #{deleted,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.imyiren.uop.infra.dal.po.OrgDeptPO" useGeneratedKeys="true">
+    insert into org_dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentDeptId != null">
+        parent_dept_id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="deptName != null">
+        dept_name,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentDeptId != null">
+        #{parentDeptId,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imyiren.uop.infra.dal.po.OrgDeptPO">
+    update org_dept
+    <set>
+      <if test="parentDeptId != null">
+        parent_dept_id = #{parentDeptId,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="deptName != null">
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imyiren.uop.infra.dal.po.OrgDeptPO">
+    update org_dept
+    set parent_dept_id = #{parentDeptId,jdbcType=BIGINT},
+      org_id = #{orgId,jdbcType=BIGINT},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

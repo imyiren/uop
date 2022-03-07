@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imyiren.uop.infra.dal.dao.CustomerDAO">
+  <resultMap id="BaseResultMap" type="com.imyiren.uop.infra.dal.po.CustomerPO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="sourceType" jdbcType="INTEGER" property="sourcetype" />
+    <result column="qq" jdbcType="INTEGER" property="qq" />
+    <result column="qq_group" jdbcType="INTEGER" property="qqGroup" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="medical_dept_prop_code" jdbcType="VARCHAR" property="medicalDeptPropCode" />
+    <result column="requirement" jdbcType="VARCHAR" property="requirement" />
+    <result column="customer_file_list" jdbcType="OTHER" property="customerFileList" />
+    <result column="result_file_list" jdbcType="OTHER" property="resultFileList" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, org_id, create_user_id, phone, real_name, gender, company, sourceType, qq, qq_group,
+    email, medical_dept_prop_code, requirement, customer_file_list, result_file_list,
+    create_user_name, deleted, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from customer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from customer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.imyiren.uop.infra.dal.po.CustomerPO" useGeneratedKeys="true">
+    insert into customer (org_id, create_user_id, phone,
+      real_name, gender, company,
+      sourceType, qq, qq_group,
+      email, medical_dept_prop_code, requirement,
+      customer_file_list, result_file_list, create_user_name,
+      deleted, create_time, update_time
+      )
+    values (#{orgId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR},
+      #{realName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR},
+      #{sourcetype,jdbcType=INTEGER}, #{qq,jdbcType=INTEGER}, #{qqGroup,jdbcType=INTEGER},
+      #{email,jdbcType=VARCHAR}, #{medicalDeptPropCode,jdbcType=VARCHAR}, #{requirement,jdbcType=VARCHAR},
+      #{customerFileList,jdbcType=OTHER}, #{resultFileList,jdbcType=OTHER}, #{createUserName,jdbcType=VARCHAR},
+      #{deleted,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.imyiren.uop.infra.dal.po.CustomerPO" useGeneratedKeys="true">
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="sourcetype != null">
+        sourceType,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="qqGroup != null">
+        qq_group,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="medicalDeptPropCode != null">
+        medical_dept_prop_code,
+      </if>
+      <if test="requirement != null">
+        requirement,
+      </if>
+      <if test="customerFileList != null">
+        customer_file_list,
+      </if>
+      <if test="resultFileList != null">
+        result_file_list,
+      </if>
+      <if test="createUserName != null">
+        create_user_name,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcetype != null">
+        #{sourcetype,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=INTEGER},
+      </if>
+      <if test="qqGroup != null">
+        #{qqGroup,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalDeptPropCode != null">
+        #{medicalDeptPropCode,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="customerFileList != null">
+        #{customerFileList,jdbcType=OTHER},
+      </if>
+      <if test="resultFileList != null">
+        #{resultFileList,jdbcType=OTHER},
+      </if>
+      <if test="createUserName != null">
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imyiren.uop.infra.dal.po.CustomerPO">
+    update customer
+    <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcetype != null">
+        sourceType = #{sourcetype,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=INTEGER},
+      </if>
+      <if test="qqGroup != null">
+        qq_group = #{qqGroup,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalDeptPropCode != null">
+        medical_dept_prop_code = #{medicalDeptPropCode,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        requirement = #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="customerFileList != null">
+        customer_file_list = #{customerFileList,jdbcType=OTHER},
+      </if>
+      <if test="resultFileList != null">
+        result_file_list = #{resultFileList,jdbcType=OTHER},
+      </if>
+      <if test="createUserName != null">
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imyiren.uop.infra.dal.po.CustomerPO">
+    update customer
+    set org_id = #{orgId,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      phone = #{phone,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR},
+      sourceType = #{sourcetype,jdbcType=INTEGER},
+      qq = #{qq,jdbcType=INTEGER},
+      qq_group = #{qqGroup,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      medical_dept_prop_code = #{medicalDeptPropCode,jdbcType=VARCHAR},
+      requirement = #{requirement,jdbcType=VARCHAR},
+      customer_file_list = #{customerFileList,jdbcType=OTHER},
+      result_file_list = #{resultFileList,jdbcType=OTHER},
+      create_user_name = #{createUserName,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

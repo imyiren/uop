@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.imyiren.uop</groupId>
+    <artifactId>hcrm</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <modules>
+        <module>uop-application</module>
+        <module>uop-infra</module>
+        <module>uop-domain</module>
+        <module>uop-web</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <uop-app-api.version>1.0.0-SNAPSHOT</uop-app-api.version>
+    </properties>
+
+    <parent>
+        <groupId>com.imyiren</groupId>
+        <artifactId>yiren-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.imyiren.uop</groupId>
+                <artifactId>uop-application-api</artifactId>
+                <version>${uop-app-api.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
