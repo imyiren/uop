@@ -8,12 +8,27 @@ import java.io.Serializable;
  * @author yiren
  */
 @Data
-public class UserLoginRequest implements Serializable {
+public class UserRegisterRequest implements Serializable {
 
     /**
-     * 用户名支持：用户名/手机/邮箱登录
+     * 用户名
      */
     private String username;
+
+    /**
+     * 昵称
+     */
+    private String nickname;
+
+    /**
+     * 电话
+     */
+    private String phone;
+
+    /**
+     * 邮箱
+     */
+    private String email;
 
     /**
      * 密码
@@ -29,4 +44,5 @@ public class UserLoginRequest implements Serializable {
      * 验证码值
      */
     private String validationCode;
+
 }

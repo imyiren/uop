@@ -1,11 +1,11 @@
 package com.imyiren.uop.domain.validation.api;
 
-import com.imyiren.uop.domain.validation.event.ValidateKeyAndCodeEvent;
+import com.imyiren.uop.domain.validation.event.ValidatePicKeyAndCodeEvent;
 
 /**
  * @author yiren
  */
-public interface CommonValidationDomainService {
+public interface ValidationPicDomainService {
 
 
     /**
@@ -14,6 +14,6 @@ public interface CommonValidationDomainService {
      * @param event  验证码Key和code事件
      * @return 是否成功
      */
-    boolean validateKeyAndCode(ValidateKeyAndCodeEvent event);
+    boolean validateKeyAndCode(ValidatePicKeyAndCodeEvent event);
 
 }

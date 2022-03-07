@@ -1,9 +1,11 @@
 package com.imyiren.uop.convertor;
 
+import com.imyiren.uop.application.write.cmd.UserCreateCmd;
 import com.imyiren.uop.application.write.cmd.UserLoginCmd;
 import com.imyiren.uop.application.read.dto.UserInfoDTO;
 import com.imyiren.uop.application.write.dto.UserLoginDTO;
 import com.imyiren.uop.request.UserLoginRequest;
+import com.imyiren.uop.request.UserRegisterRequest;
 import com.imyiren.uop.vo.UserInfoVO;
 import com.imyiren.uop.vo.UserLoginVO;
 
@@ -55,5 +57,21 @@ public abstract class UserConvertor {
         userInfoVO.setTitle(userInfoDTO.getTitle());
         userInfoVO.setWorkNo(userInfoDTO.getWorkNo());
         return userInfoVO;
+    }
+
+
+    public static UserCreateCmd toUserCreateCmd(UserRegisterRequest request) {
+        if (Objects.isNull(request)) {
+            return null;
+        }
+        UserCreateCmd userCreateCmd = new UserCreateCmd();
+        userCreateCmd.setUsername(request.getUsername());
+        userCreateCmd.setNickname(request.getNickname());
+        userCreateCmd.setPhone(request.getPhone());
+        userCreateCmd.setEmail(request.getEmail());
+        userCreateCmd.setPassword(request.getPassword());
+        userCreateCmd.setValidationKey(request.getValidationKey());
+        userCreateCmd.setValidationCode(request.getValidationCode());
+        return userCreateCmd;
     }
 }

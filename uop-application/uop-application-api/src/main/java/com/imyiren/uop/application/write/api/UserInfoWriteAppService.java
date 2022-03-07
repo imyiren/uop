@@ -18,25 +18,25 @@ public interface UserInfoWriteAppService {
      * 登录
      * 支持 手机号/邮箱/账号 登录
      *
-     * @param userLoginCmd 登录命令
+     * @param cmd 登录命令
      * @return 登录结果
      */
-    UserLoginDTO login(@Valid UserLoginCmd userLoginCmd);
+    UserLoginDTO login(@Valid UserLoginCmd cmd);
 
     /**
      * 登出
      *
-     * @param userLogoutCmd sessionId
+     * @param cmd sessionId
      * @return 是否成功
      */
-    UserLogoutDTO logout(@Valid UserLogoutCmd userLogoutCmd);
+    UserLogoutDTO logout(@Valid UserLogoutCmd cmd);
 
 
     /**
-     * 创建用户
+     * 初期创建用户需要 启用后才可以登录
      *
-     * @param userCreateCmd 用户
-     * @return 结果
+     * @param cmd 用户创建请求
+     * @return 创建结果信息
      */
-    UserCreateDTO createUser(UserCreateCmd userCreateCmd);
+    UserCreateDTO createUser(UserCreateCmd cmd);
 }

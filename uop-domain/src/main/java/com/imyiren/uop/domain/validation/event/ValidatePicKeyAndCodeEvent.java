@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author yiren
  */
 @Data
-public class ValidateKeyAndCodeEvent implements Serializable {
+public class ValidatePicKeyAndCodeEvent implements Serializable {
 
     /**
      * key

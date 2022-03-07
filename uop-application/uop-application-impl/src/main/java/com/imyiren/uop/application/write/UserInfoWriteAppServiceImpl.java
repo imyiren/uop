@@ -7,8 +7,8 @@ import com.imyiren.uop.application.write.cmd.UserLogoutCmd;
 import com.imyiren.uop.application.write.dto.UserCreateDTO;
 import com.imyiren.uop.application.write.dto.UserLoginDTO;
 import com.imyiren.uop.application.write.dto.UserLogoutDTO;
-import com.imyiren.uop.domain.validation.api.CommonValidationDomainService;
-import com.imyiren.uop.domain.validation.event.ValidateKeyAndCodeEvent;
+import com.imyiren.uop.domain.validation.api.ValidationPicDomainService;
+import com.imyiren.uop.domain.validation.event.ValidatePicKeyAndCodeEvent;
 import com.imyiren.uop.domain.user.api.UserAuthDomainService;
 import com.imyiren.uop.domain.user.event.CreateUserSessionEvent;
 import com.imyiren.uop.domain.user.event.DeleteUserSessionEvent;
@@ -29,15 +29,15 @@ public class UserInfoWriteAppServiceImpl implements UserInfoWriteAppService {
 
     private final UserAuthDomainService userAuthDomainService;
 
-    private final CommonValidationDomainService commonValidationDomainService;
+    private final ValidationPicDomainService validationPicDomainService;
 
     @Override
     public UserLoginDTO login(UserLoginCmd cmd) {
         // 校验验证码
-        ValidateKeyAndCodeEvent validateKeyAndCodeEvent = new ValidateKeyAndCodeEvent();
-        validateKeyAndCodeEvent.setValidationKey(cmd.getValidationKey());
-        validateKeyAndCodeEvent.setValidationCode(cmd.getValidationCode());
-        boolean valid = commonValidationDomainService.validateKeyAndCode(validateKeyAndCodeEvent);
+        ValidatePicKeyAndCodeEvent validatePicKeyAndCodeEvent = new ValidatePicKeyAndCodeEvent();
+        validatePicKeyAndCodeEvent.setValidationKey(cmd.getValidationKey());
+        validatePicKeyAndCodeEvent.setValidationCode(cmd.getValidationCode());
+        boolean valid = validationPicDomainService.validateKeyAndCode(validatePicKeyAndCodeEvent);
         if (!valid) {
             throw new BizRuntimeException(BizStateCodes.BIZ_ERROR, "验证码校验失败，请刷新后重试！");
         }
@@ -71,7 +71,16 @@ public class UserInfoWriteAppServiceImpl implements UserInfoWriteAppService {
     }
 
     @Override
-    public UserCreateDTO createUser(UserCreateCmd userCreateCmd) {
+    public UserCreateDTO createUser(UserCreateCmd cmd) {
+        // 校验验证码
+        ValidatePicKeyAndCodeEvent validatePicKeyAndCodeEvent = new ValidatePicKeyAndCodeEvent();
+        validatePicKeyAndCodeEvent.setValidationKey(cmd.getValidationKey());
+        validatePicKeyAndCodeEvent.setValidationCode(cmd.getValidationCode());
+        boolean valid = validationPicDomainService.validateKeyAndCode(validatePicKeyAndCodeEvent);
+        if (!valid) {
+            throw new BizRuntimeException(BizStateCodes.BIZ_ERROR, "验证码校验失败，请刷新后重试！");
+        }
+
         return null;
     }
 

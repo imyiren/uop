@@ -40,26 +40,6 @@ public class UserController {
         return BizResults.success(userLogoutVO);
     }
 
-    @GetMapping("/page")
-    public BizPageResult<UserInfoVO> page(
-            @RequestParam Integer pageNum,
-            @RequestParam Integer pageSize,
-            @RequestParam(required = false) String username,
-            @RequestParam(required = false) String phone,
-            @RequestParam(required = false) String email,
-            @RequestParam(required = false) String realName
-    ) {
-        UserListPageQuery userListPageQuery = new UserListPageQuery();
-        userListPageQuery.setPageNum(pageNum);
-        userListPageQuery.setPageSize(pageSize);
-        userListPageQuery.setUsername(username);
-        userListPageQuery.setPhone(phone);
-        userListPageQuery.setEmail(email);
-        userListPageQuery.setRealName(realName);
-        PageDTO<UserInfoDTO> pageResult = userInfoReadAppService.listPageByQuery(userListPageQuery);
-        return PageConvertor.toBizPageResult(pageResult, UserConvertor::toUserInfoVO);
-    }
-
     @GetMapping("/session")
     public BizResult<UserInfoVO> getBySessionId(
             @RequestHeader("session-id") String sessionId
