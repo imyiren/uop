@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/open/user")
+@RequestMapping("/open/user")
 public class OpenUserController {
 
     private final UserInfoReadAppService userInfoReadAppService;

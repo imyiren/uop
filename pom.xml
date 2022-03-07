@@ -13,6 +13,7 @@
         <module>uop-infra</module>
         <module>uop-domain</module>
         <module>uop-web</module>
+        <module>uop-launcher</module>
     </modules>
 
     <properties>

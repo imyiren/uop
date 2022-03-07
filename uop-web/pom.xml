@@ -19,8 +19,8 @@
     <dependencies>
         <dependency>
             <groupId>com.imyiren.uop</groupId>
-            <artifactId>uop-application-impl</artifactId>
-            <version>${project.parent.version}</version>
+            <artifactId>uop-application-api</artifactId>
+            <version>${uop-app-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,30 +35,5 @@
             <artifactId>yiren-error-webmvc-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <configuration>
-                    <!-- 指定该Main Class为全局的唯一入口 -->
-                    <mainClass>com.imyiren.uop.UopApplication</mainClass>
-                    <layout>ZIP</layout>
-                    <fork>true</fork>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!--可以把依赖的包都打包到生成的Jar包中-->
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserInfoWriteAppService userInfoWriteAppService;

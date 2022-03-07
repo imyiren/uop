@@ -1,6 +1,6 @@
-package com.imyiren.uop.domain.support.api;
+package com.imyiren.uop.domain.validation.api;
 
-import com.imyiren.uop.domain.support.event.ValidateKeyAndCodeEvent;
+import com.imyiren.uop.domain.validation.event.ValidateKeyAndCodeEvent;
 
 /**
  * @author yiren

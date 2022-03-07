@@ -1,4 +1,4 @@
-package com.imyiren.uop.domain.support.event;
+package com.imyiren.uop.domain.validation.event;
 
 import lombok.Data;
 
