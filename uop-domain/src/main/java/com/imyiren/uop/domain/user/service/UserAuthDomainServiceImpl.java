@@ -67,4 +67,8 @@ public class UserAuthDomainServiceImpl implements UserAuthDomainService {
         return true;
     }
 
+    public static void main(String[] args) {
+        System.out.println(PASSWORD_ENCODER.encode("luoxin"));
+    }
+
 }

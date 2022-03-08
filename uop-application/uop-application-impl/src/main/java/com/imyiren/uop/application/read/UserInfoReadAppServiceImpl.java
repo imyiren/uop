@@ -65,7 +65,7 @@ public class UserInfoReadAppServiceImpl implements UserInfoReadAppService {
 
         // 用户信息查询
         UserInfoQuery userInfoQuery = new UserInfoQuery();
-        userInfoQuery.setId(userSessionDO.getId());
+        userInfoQuery.setId(userSessionDO.getUserId());
         userInfoQuery.setState(UserStateEnum.ACTIVE.getCode());
         UserInfoDO userInfoDO = userInfoRepository.get(userInfoQuery);
         if (Objects.isNull(userInfoDO)) {
