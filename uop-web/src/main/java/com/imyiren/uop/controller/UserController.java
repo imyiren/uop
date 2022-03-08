@@ -19,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -45,8 +47,11 @@ public class UserController {
 
     @GetMapping("/session")
     public Result getBySessionId(
-            @RequestHeader(name = "session-id", required = false) String sessionId
+            @RequestHeader(name = "session-id", required = false) String sessionId,
+            @RequestHeader(name = "UserInfo", required = false) String userInfo
+
     ) {
+        log.info("UserInfo: {}", URLDecoder.decode(userInfo));
         if (StringUtils.isEmpty(sessionId)) {
             return BizResults.failed(BizStateCodes.BIZ_ERROR, "当前会话信息为空！请登录后重试！");
         }
