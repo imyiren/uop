@@ -40,3 +40,11 @@ logging:
     org.apache.zookeeper.*: WARN
     org.apache.dubbo.*: WARN
     com.alibaba.nacos.*: WARN
+aliyun:
+  oss:
+    endpoint: oss-cn-hangzhou-internal.aliyuncs.com
+    access-key-id: xxxx
+    access-key-secret: xxx
+    domain: oss.net
+    bucket-name: xxxx
+    prefix: uop
