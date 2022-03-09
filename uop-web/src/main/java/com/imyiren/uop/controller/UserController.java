@@ -9,6 +9,7 @@ import com.imyiren.uop.application.read.query.UserInfoGetByValidSessionQuery;
 import com.imyiren.uop.application.write.api.UserInfoWriteAppService;
 import com.imyiren.uop.application.write.cmd.UserLogoutCmd;
 import com.imyiren.uop.application.write.dto.UserLogoutDTO;
+import com.imyiren.uop.client.common.UserContext;
 import com.imyiren.uop.convertor.UserConvertor;
 import com.imyiren.uop.vo.UserInfoVO;
 import com.imyiren.uop.vo.UserLogoutVO;
@@ -46,17 +47,10 @@ public class UserController {
     }
 
     @GetMapping("/session")
-    public Result getBySessionId(
-            @RequestHeader(name = "session-id", required = false) String sessionId,
-            @RequestHeader(name = "UserInfo", required = false) String userInfo
-
-    ) {
-        log.info("UserInfo: {}", URLDecoder.decode(userInfo));
-        if (StringUtils.isEmpty(sessionId)) {
-            return BizResults.failed(BizStateCodes.BIZ_ERROR, "当前会话信息为空！请登录后重试！");
-        }
+    public Result getBySessionId() {
+        log.info("验证web上下问传递参数 UserContext.get(): {}", UserContext.get());
         UserInfoGetByValidSessionQuery query = new UserInfoGetByValidSessionQuery();
-        query.setSessionId(sessionId);
+        query.setSessionId(UserContext.get().getSessionId());
         UserSessionInfoDTO userSessionInfoDTO = userInfoReadAppService.getByValidSession(query);
         if (Objects.isNull(userSessionInfoDTO)) {
             BizResults.failed(BizStateCodes.BIZ_ERROR, "session会话过期，请重新登录！");
