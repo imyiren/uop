@@ -29,7 +29,7 @@ public class StorageAppServiceImpl implements StorageAppService {
         StorageFileUploadDTO result = new StorageFileUploadDTO();
         result.setCode(upload.getCode());
         result.setFilename(upload.getFilename());
-        result.setUrl(upload.getCode());
+        result.setUrl(upload.getUrl());
         return result;
     }
 
