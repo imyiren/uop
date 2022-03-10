@@ -1,9 +1,11 @@
 package com.imyiren.uop.application.write.api;
 
 import com.imyiren.uop.application.write.cmd.UserCreateCmd;
+import com.imyiren.uop.application.write.cmd.UserDelaySessionExpireTimeCmd;
 import com.imyiren.uop.application.write.cmd.UserLoginCmd;
 import com.imyiren.uop.application.write.cmd.UserLogoutCmd;
 import com.imyiren.uop.application.write.dto.UserCreateDTO;
+import com.imyiren.uop.application.write.dto.UserDelaySessionDTO;
 import com.imyiren.uop.application.write.dto.UserLoginDTO;
 import com.imyiren.uop.application.write.dto.UserLogoutDTO;
 
@@ -39,4 +41,13 @@ public interface UserInfoWriteAppService {
      * @return 创建结果信息
      */
     UserCreateDTO createUser(UserCreateCmd cmd);
+
+
+    /**
+     * 延迟session过期时间
+     *
+     * @param cmd 延迟session过期
+     * @return 延迟过期
+     */
+    UserDelaySessionDTO delaySessionExpire(UserDelaySessionExpireTimeCmd cmd);
 }

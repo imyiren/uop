@@ -2,11 +2,14 @@ package com.imyiren.uop.application.write;
 
 import com.imyiren.uop.application.write.api.UserInfoWriteAppService;
 import com.imyiren.uop.application.write.cmd.UserCreateCmd;
+import com.imyiren.uop.application.write.cmd.UserDelaySessionExpireTimeCmd;
 import com.imyiren.uop.application.write.cmd.UserLoginCmd;
 import com.imyiren.uop.application.write.cmd.UserLogoutCmd;
 import com.imyiren.uop.application.write.dto.UserCreateDTO;
+import com.imyiren.uop.application.write.dto.UserDelaySessionDTO;
 import com.imyiren.uop.application.write.dto.UserLoginDTO;
 import com.imyiren.uop.application.write.dto.UserLogoutDTO;
+import com.imyiren.uop.domain.user.event.UserSessionDelayEvent;
 import com.imyiren.uop.domain.validation.api.ValidationPicDomainService;
 import com.imyiren.uop.domain.validation.event.ValidatePicKeyAndCodeEvent;
 import com.imyiren.uop.domain.user.api.UserAuthDomainService;
@@ -80,6 +83,17 @@ public class UserInfoWriteAppServiceImpl implements UserInfoWriteAppService {
         }
 
         return null;
+    }
+
+    @Override
+    public UserDelaySessionDTO delaySessionExpire(UserDelaySessionExpireTimeCmd cmd) {
+        UserSessionDelayEvent event = new UserSessionDelayEvent();
+        event.setSessionId(cmd.getSessionId());
+
+        UserDelaySessionDTO userDelaySession = new UserDelaySessionDTO();
+        userDelaySession.setSuccess(userAuthDomainService.delaySessionExpireTime(event));
+
+        return userDelaySession;
     }
 
 

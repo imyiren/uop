@@ -11,6 +11,7 @@ import com.imyiren.uop.domain.user.event.CreateUserSessionEvent;
 import com.imyiren.uop.domain.user.event.DeleteUserSessionEvent;
 import com.imyiren.result.BizStateCodes;
 import com.imyiren.result.error.BizRuntimeException;
+import com.imyiren.uop.domain.user.event.UserSessionDelayEvent;
 import com.imyiren.utils.common.UuidUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +49,7 @@ public class UserAuthDomainServiceImpl implements UserAuthDomainService {
         UserSessionDO userSessionDO = new UserSessionDO();
         userSessionDO.setSessionId(sessionId);
         userSessionDO.setUserId(userInfo.getId());
-        userSessionDO.setExpireTime(LocalDateTime.now().plusHours(2));
+        userSessionDO.setExpireTime(LocalDateTime.now().plusHours(5));
         userSessionRepository.save(userSessionDO);
         // create session to userInfo map.
         return sessionId;
@@ -63,6 +64,21 @@ public class UserAuthDomainServiceImpl implements UserAuthDomainService {
             return true;
         }
         userSessionDO.setExpireTime(LocalDateTime.now());
+        userSessionRepository.save(userSessionDO);
+        return true;
+    }
+
+    @Override
+    public boolean delaySessionExpireTime(UserSessionDelayEvent event) {
+        UserSessionQuery userSessionQuery = new UserSessionQuery();
+        userSessionQuery.setSessionId(event.getSessionId());
+        userSessionQuery.setExpireTimeEnd(LocalDateTime.now());
+        UserSessionDO userSessionDO = userSessionRepository.get(userSessionQuery);
+        if (Objects.isNull(userSessionDO)) {
+            return false;
+        }
+
+        userSessionDO.setExpireTime(LocalDateTime.now().plusHours(5));
         userSessionRepository.save(userSessionDO);
         return true;
     }
