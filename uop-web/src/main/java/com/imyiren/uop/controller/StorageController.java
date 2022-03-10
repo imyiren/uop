@@ -5,6 +5,7 @@ import com.imyiren.result.base.Result;
 import com.imyiren.uop.application.write.api.StorageAppService;
 import com.imyiren.uop.application.write.cmd.StorageFileUploadCmd;
 import com.imyiren.uop.application.write.dto.StorageFileUploadDTO;
+import com.imyiren.uop.client.common.UserContext;
 import com.imyiren.uop.vo.StorageUploadVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,12 +29,12 @@ public class StorageController {
 
     @RequestMapping("/storage/upload")
     public Result upload(@RequestParam("file") MultipartFile multipartFile) throws IOException {
-        log.info(multipartFile.getOriginalFilename());
+        log.info("upload: filename: {}, userId: {}", multipartFile.getOriginalFilename(), UserContext.getUserId());
         InputStream inputStream = multipartFile.getInputStream();
         byte[] bytes = toByteArray(inputStream);
         StorageFileUploadCmd storageFileUploadCmd = new StorageFileUploadCmd();
         storageFileUploadCmd.setData(bytes);
-        storageFileUploadCmd.setFilename(multipartFile.getName());
+        storageFileUploadCmd.setFilename(multipartFile.getOriginalFilename());
         StorageFileUploadDTO upload = storageAppService.upload(storageFileUploadCmd);
 
         // 结果转换

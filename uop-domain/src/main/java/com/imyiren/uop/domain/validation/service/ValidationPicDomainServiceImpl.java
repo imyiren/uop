@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -36,7 +37,7 @@ public class ValidationPicDomainServiceImpl implements ValidationPicDomainServic
             throw new BizRuntimeException(BizStateCodes.BIZ_ERROR, "验证码失效，请重试！");
         }
 
-        if (!Objects.equals(validationPicDO.getPicCode(), event.getPicCode())) {
+        if (!Objects.equals(validationPicDO.getPicCode(), event.getPicCode().toLowerCase())) {
             throw new BizRuntimeException(BizStateCodes.BIZ_ERROR, "验证码错误，请重试！");
         }
         return true;
@@ -46,7 +47,7 @@ public class ValidationPicDomainServiceImpl implements ValidationPicDomainServic
     public ValidationPicDO create(ValidationPicCreateEvent event) {
         ValidationPicDO validationPicDO = new ValidationPicDO();
         validationPicDO.setPicKey(UuidUtils.generate());
-        validationPicDO.setPicCode(event.getPicCode());
+        validationPicDO.setPicCode(event.getPicCode().toLowerCase());
         validationPicDO.setState(ValidationPicStateEnum.WAIT_VALIDATE.getCode());
         return validationPicRepository.create(validationPicDO);
     }

@@ -4,9 +4,9 @@ spring:
   application:
     name: uop
   datasource:
-    url: jdbc:mysql://mysql.net:3306/uop
-    username: root
-    password: 123456
+    url: ${UOP_MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   cloud:
@@ -43,8 +43,8 @@ logging:
 aliyun:
   oss:
     endpoint: oss-cn-hangzhou-internal.aliyuncs.com
-    access-key-id: xxxx
-    access-key-secret: xxx
-    domain: oss.net
-    bucket-name: xxxx
-    prefix: uop
+    access-key-id: ${ALIYUN_OSS_KEY_ID}
+    access-key-secret: ${ALIYUN_OSS_KEY_SECRET}
+    domain: ${ALIYUN_OSS_DOMAI}
+    bucket-name: ${ALIYUN_OSS_BUCKET_NAME}
+    prefix: ${ALIYUN_OSS_PREFIX}
