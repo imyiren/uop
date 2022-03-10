@@ -24,11 +24,16 @@ public class ValidationPicRepositoryImpl implements ValidationPicRepository {
 
 
     @Override
-    public ValidationPicDO create(ValidationPicDO validationPicDO) {
+    public ValidationPicDO save(ValidationPicDO validationPicDO) {
         if (Objects.isNull(validationPicDO)) {
             return null;
         }
         UopValidationPic uopValidationPic = ValidationPicRepoConvertor.toUopValidationPic(validationPicDO);
+        if (Objects.nonNull(validationPicDO.getId())) {
+            uopValidationPicDAO.updateByPrimaryKeySelective(uopValidationPic);
+            return validationPicDO;
+        }
+
         uopValidationPicDAO.insertSelective(uopValidationPic);
         validationPicDO.setId(uopValidationPic.getId());
         return validationPicDO;

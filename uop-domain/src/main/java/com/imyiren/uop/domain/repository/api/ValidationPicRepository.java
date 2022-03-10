@@ -15,7 +15,7 @@ public interface ValidationPicRepository {
      * @param validationPicDO 图片验证码信息
      * @return 图片验证码
      */
-    ValidationPicDO create(ValidationPicDO validationPicDO);
+    ValidationPicDO save(ValidationPicDO validationPicDO);
 
     /**
      * 获取图片验证码
@@ -24,4 +24,5 @@ public interface ValidationPicRepository {
      * @return 图片验证码信息
      */
     ValidationPicDO get(ValidationPicQuery query);
+
 }
