@@ -3,20 +3,19 @@ package com.imyiren.uop.controller;
 import com.imyiren.result.BizResults;
 import com.imyiren.result.base.Result;
 import com.imyiren.uop.application.write.api.StorageAppService;
+import com.imyiren.uop.application.write.cmd.StorageFileUploadCmd;
 import com.imyiren.uop.application.write.dto.StorageFileUploadDTO;
+import com.imyiren.uop.vo.StorageUploadVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.UUID;
 
 /**
  * @author yiren
@@ -32,13 +31,17 @@ public class StorageController {
         log.info(multipartFile.getOriginalFilename());
         InputStream inputStream = multipartFile.getInputStream();
         byte[] bytes = toByteArray(inputStream);
-        // return BizResults.success(storageAppService.upload());
-        StorageFileUploadDTO storageFileUploadDTO = new StorageFileUploadDTO();
-        storageFileUploadDTO.setCode(UUID.randomUUID().toString());
-        storageFileUploadDTO.setFilename(UUID.randomUUID().toString() + ".txt");
-        storageFileUploadDTO.setUrl("https//asfda.fsadfdasf.com/sfa.txt");
+        StorageFileUploadCmd storageFileUploadCmd = new StorageFileUploadCmd();
+        storageFileUploadCmd.setData(bytes);
+        storageFileUploadCmd.setFilename(multipartFile.getName());
+        StorageFileUploadDTO upload = storageAppService.upload(storageFileUploadCmd);
 
-        return BizResults.success(storageFileUploadDTO);
+        // 结果转换
+        StorageUploadVO storageUploadVO = new StorageUploadVO();
+        storageUploadVO.setCode(upload.getCode());
+        storageUploadVO.setFilename(upload.getFilename());
+        storageUploadVO.setUrl(upload.getUrl());
+        return BizResults.success(storageUploadVO);
     }
 
     public static byte[] toByteArray(InputStream input) throws IOException {

@@ -13,6 +13,32 @@
   <sql id="Base_Column_List">
     id, pic_key, pic_code, `state`, deleted, create_time, update_time
   </sql>
+
+  <sql id="query">
+    <where>
+      <if test="id != null">AND `id` = #{id}</if>
+      <if test="picKey != null">AND `pic_key` = #{picKey}</if>
+      <if test="state != null">AND `state` &gt;= #{state}</if>
+      <if test="deleted != null">AND `deleted` &lt;= #{deleted}</if>
+      <if test="createTime != null">AND `create_time` = #{createTime}</if>
+      <if test="createTimeStart != null">AND `create_time` &gt;= #{createTimeStart}</if>
+      <if test="createTimeEnd != null">AND `create_time` &lt;= #{createTimeEnd}</if>
+      <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+      <if test="updateTimeStart != null">AND `update_time` &gt;= #{updateTimeStart}</if>
+      <if test="updateTimeEnd != null">AND `update_time` &lt;= #{updateTimeEnd}</if>
+    </where>
+  </sql>
+
+
+
+
+  <select id="get" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from uop_validation_pic
+    <include refid="query"/>
+    limit 1
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

@@ -17,7 +17,6 @@ import com.imyiren.result.error.BizRuntimeException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
@@ -36,8 +35,8 @@ public class UserInfoWriteAppServiceImpl implements UserInfoWriteAppService {
     public UserLoginDTO login(UserLoginCmd cmd) {
         // 校验验证码
         ValidatePicKeyAndCodeEvent validatePicKeyAndCodeEvent = new ValidatePicKeyAndCodeEvent();
-        validatePicKeyAndCodeEvent.setValidationKey(cmd.getValidationKey());
-        validatePicKeyAndCodeEvent.setValidationCode(cmd.getValidationCode());
+        validatePicKeyAndCodeEvent.setPicKey(cmd.getValidationKey());
+        validatePicKeyAndCodeEvent.setPicCode(cmd.getValidationCode());
         boolean valid = validationPicDomainService.validateKeyAndCode(validatePicKeyAndCodeEvent);
         if (!valid) {
             throw new BizRuntimeException(BizStateCodes.BIZ_ERROR, "验证码校验失败，请刷新后重试！");
@@ -73,8 +72,8 @@ public class UserInfoWriteAppServiceImpl implements UserInfoWriteAppService {
     public UserCreateDTO createUser(UserCreateCmd cmd) {
         // 校验验证码
         ValidatePicKeyAndCodeEvent validatePicKeyAndCodeEvent = new ValidatePicKeyAndCodeEvent();
-        validatePicKeyAndCodeEvent.setValidationKey(cmd.getValidationKey());
-        validatePicKeyAndCodeEvent.setValidationCode(cmd.getValidationCode());
+        validatePicKeyAndCodeEvent.setPicKey(cmd.getValidationKey());
+        validatePicKeyAndCodeEvent.setPicCode(cmd.getValidationCode());
         boolean valid = validationPicDomainService.validateKeyAndCode(validatePicKeyAndCodeEvent);
         if (!valid) {
             throw new BizRuntimeException(BizStateCodes.BIZ_ERROR, "验证码校验失败，请刷新后重试！");

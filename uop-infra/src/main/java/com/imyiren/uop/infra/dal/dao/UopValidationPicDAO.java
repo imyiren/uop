@@ -1,5 +1,6 @@
 package com.imyiren.uop.infra.dal.dao;
 
+import com.imyiren.uop.domain.repository.query.ValidationPicQuery;
 import com.imyiren.uop.infra.dal.po.UopValidationPic;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,6 +13,8 @@ public interface UopValidationPicDAO {
     int insertSelective(UopValidationPic record);
 
     UopValidationPic selectByPrimaryKey(Long id);
+
+    UopValidationPic get(ValidationPicQuery query);
 
     int updateByPrimaryKeySelective(UopValidationPic record);
 

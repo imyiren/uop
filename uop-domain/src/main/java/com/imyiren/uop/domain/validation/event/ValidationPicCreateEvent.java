@@ -8,15 +8,10 @@ import java.io.Serializable;
  * @author yiren
  */
 @Data
-public class ValidatePicKeyAndCodeEvent implements Serializable {
+public class ValidationPicCreateEvent implements Serializable {
 
     /**
-     * key
-     */
-    private String picKey;
-
-    /**
-     * value
+     * 校验码
      */
     private String picCode;
 
