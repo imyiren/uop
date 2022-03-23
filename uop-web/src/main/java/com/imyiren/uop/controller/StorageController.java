@@ -40,7 +40,7 @@ public class StorageController {
         // 结果转换
         StorageUploadVO storageUploadVO = new StorageUploadVO();
         storageUploadVO.setCode(upload.getCode());
-        storageUploadVO.setFilename(upload.getFilename());
+        storageUploadVO.setName(upload.getFilename());
         storageUploadVO.setUrl(upload.getUrl());
         return BizResults.success(storageUploadVO);
     }
