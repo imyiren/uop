@@ -54,9 +54,15 @@ public abstract class UserConvertor {
         userInfoVO.setEmail(userSession.getEmail());
         userInfoVO.setState(userSession.getState());
         // userInfoVO.setStateDesc();
-        userInfoVO.setRoleList(Lists.newArrayList("admin","user"));
-        userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
-        userInfoVO.setTitle("超级管理员");
+        if (userSession.getCode().startsWith("800")) {
+            userInfoVO.setRoleList(Lists.newArrayList("admin", "user"));
+            userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
+            userInfoVO.setTitle("超级管理员");
+        } else {
+            userInfoVO.setRoleList(Lists.newArrayList("user"));
+            userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
+            userInfoVO.setTitle("普通用户");
+        }
         userInfoVO.setWorkNo(userSession.getCode());
         return userInfoVO;
     }
