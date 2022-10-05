@@ -51,6 +51,7 @@
     <include refid="Base_Column_List" />
     from uop_user
     <include refid="query" />
+    order by create_time desc
   </select>
   <select id="selectOneByQuery" resultMap="BaseResultMap">
     select
