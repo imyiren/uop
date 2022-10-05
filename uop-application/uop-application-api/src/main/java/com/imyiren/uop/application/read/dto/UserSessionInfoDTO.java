@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author yiren
@@ -60,7 +61,9 @@ public class UserSessionInfoDTO implements Serializable {
      * 用户账号状态 100-正常 200-停用 300-注销
      */
     private Integer state;
+    private String stateDesc;
 
+    private List<String> roleList;
     /**
      * 删除状态 1-删除 2-未删除
      */

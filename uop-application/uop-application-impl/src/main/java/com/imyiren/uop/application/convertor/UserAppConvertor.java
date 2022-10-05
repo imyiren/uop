@@ -3,8 +3,13 @@ package com.imyiren.uop.application.convertor;
 import com.imyiren.uop.application.read.dto.UserInfoDTO;
 import com.imyiren.uop.application.read.dto.UserSessionInfoDTO;
 import com.imyiren.uop.application.read.query.UserGetQuery;
+import com.imyiren.uop.application.read.query.UserListPageQuery;
+import com.imyiren.uop.client.common.UserStateEnum;
+import com.imyiren.uop.domain.repository.entity.UserExtraInfoDO;
 import com.imyiren.uop.domain.repository.entity.UserInfoDO;
 import com.imyiren.uop.domain.repository.query.UserInfoQuery;
+
+import java.util.Optional;
 
 /**
  * @author yiren
@@ -33,6 +38,8 @@ public class UserAppConvertor {
         userInfoDTO.setEncryptedPwd(user.getEncryptedPwd());
         userInfoDTO.setNickname(user.getNickname());
         userInfoDTO.setState(user.getState());
+        userInfoDTO.setStateDesc(UserStateEnum.of(user.getState()).getDesc());
+        Optional.ofNullable(user).map(UserInfoDO::getExtraInfo).map(UserExtraInfoDO::getRoleList).ifPresent(userInfoDTO::setRoleList);
         userInfoDTO.setDeleted(user.getDeleted());
         userInfoDTO.setCreateTime(user.getCreateTime());
         userInfoDTO.setUpdateTime(user.getUpdateTime());
@@ -51,8 +58,28 @@ public class UserAppConvertor {
         userSessionInfoDTO.setDeleted(userInfoDO.getDeleted());
         userSessionInfoDTO.setCreateTime(userInfoDO.getCreateTime());
         userSessionInfoDTO.setState(userInfoDO.getState());
+        userSessionInfoDTO.setStateDesc(UserStateEnum.of(userInfoDO.getState()).getDesc());
+        Optional.of(userInfoDO).map(UserInfoDO::getExtraInfo).map(UserExtraInfoDO::getRoleList)
+                .ifPresent(userSessionInfoDTO::setRoleList);
         userSessionInfoDTO.setUpdateTime(userInfoDO.getUpdateTime());
         return userSessionInfoDTO;
+    }
+
+    public static UserInfoQuery toUserInfoQuery(UserListPageQuery query) {
+        UserInfoQuery userInfoQuery = new UserInfoQuery();
+        userInfoQuery.setUsername(query.getUsername());
+        userInfoQuery.setCode(query.getCode());
+        userInfoQuery.setPhone(query.getPhone());
+        userInfoQuery.setEmail(query.getEmail());
+        userInfoQuery.setState(query.getState());
+        userInfoQuery.setNickname(query.getNickname());
+        userInfoQuery.setCreateTime(query.getCreateTime());
+        userInfoQuery.setCreateTimeStart(query.getCreateTimeStart());
+        userInfoQuery.setCreateTimeEnd(query.getCreateTimeEnd());
+        userInfoQuery.setUpdateTime(query.getUpdateTime());
+        userInfoQuery.setUpdateTimeStart(query.getUpdateTimeStart());
+        userInfoQuery.setUpdateTimeEnd(query.getUpdateTimeEnd());
+        return userInfoQuery;
 
 
     }

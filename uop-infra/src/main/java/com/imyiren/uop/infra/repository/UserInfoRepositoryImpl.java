@@ -1,13 +1,17 @@
 package com.imyiren.uop.infra.repository;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.imyiren.uop.domain.repository.entity.UserInfoDO;
 import com.imyiren.uop.domain.repository.query.UserInfoQuery;
 import com.imyiren.uop.domain.repository.api.UserInfoRepository;
+import com.imyiren.uop.domain.utils.PageInfoUtils;
 import com.imyiren.uop.infra.convertor.UserInfoRepoConvertor;
 import com.imyiren.uop.infra.dal.dao.UopUserDAO;
 import com.imyiren.uop.infra.dal.po.UopUser;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
@@ -26,7 +30,7 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
 
     @Override
     public UserInfoDO get(UserInfoQuery query) {
-        UopUser user = uopUserDAO.get(query);
+        UopUser user = uopUserDAO.selectOneByQuery(query);
         if (Objects.isNull(user)) {
             return null;
         }
@@ -35,11 +39,18 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
 
     @Override
     public List<UserInfoDO> list(UserInfoQuery query) {
-        List<UopUser> uopUserList = uopUserDAO.list(query);
+        List<UopUser> uopUserList = uopUserDAO.selectByQuery(query);
         if (CollectionUtils.isEmpty(uopUserList)) {
             return Lists.newArrayList();
         }
         return uopUserList.stream().map(UserInfoRepoConvertor::toUserDO).collect(Collectors.toList());
+    }
+
+    @Override
+    public PageInfo<UserInfoDO> listPage(Integer pageNum, Integer pageSize, UserInfoQuery query) {
+        PageInfo<UopUser> userInfoPageInfo = PageHelper.startPage(ObjectUtils.defaultIfNull(pageNum,1), ObjectUtils.defaultIfNull(pageSize, 20))
+                .doSelectPageInfo(() -> uopUserDAO.selectByQuery(query));
+        return PageInfoUtils.transfer(userInfoPageInfo, UserInfoRepoConvertor::toUserDO);
     }
 
     @Override

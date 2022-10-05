@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * uop_user
- * @author
+ * @author 
  */
 @Data
 public class UopUser implements Serializable {
@@ -49,6 +49,11 @@ public class UopUser implements Serializable {
      * 用户账号状态 100-正常 200-停用 300-注销
      */
     private Integer state;
+
+    /**
+     * 额外数据
+     */
+    private String extraJson;
 
     /**
      * 删除状态 1-删除 2-未删除

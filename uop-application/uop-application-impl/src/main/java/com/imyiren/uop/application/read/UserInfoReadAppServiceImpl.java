@@ -1,5 +1,6 @@
 package com.imyiren.uop.application.read;
 
+import com.github.pagehelper.PageInfo;
 import com.imyiren.application.api.dto.PageDTO;
 import com.imyiren.uop.application.convertor.UserAppConvertor;
 import com.imyiren.uop.application.read.api.UserInfoReadAppService;
@@ -8,7 +9,8 @@ import com.imyiren.uop.application.read.dto.UserSessionInfoDTO;
 import com.imyiren.uop.application.read.query.UserGetQuery;
 import com.imyiren.uop.application.read.query.UserListPageQuery;
 import com.imyiren.uop.application.read.query.UserInfoGetByValidSessionQuery;
-import com.imyiren.uop.domain.common.enums.UserStateEnum;
+import com.imyiren.uop.application.utils.PageUtils;
+import com.imyiren.uop.client.common.UserStateEnum;
 import com.imyiren.uop.domain.repository.api.UserInfoRepository;
 import com.imyiren.uop.domain.repository.api.UserSessionRepository;
 import com.imyiren.uop.domain.repository.entity.UserInfoDO;
@@ -18,7 +20,6 @@ import com.imyiren.uop.domain.repository.query.UserSessionQuery;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -35,8 +36,10 @@ public class UserInfoReadAppServiceImpl implements UserInfoReadAppService {
     private final UserSessionRepository userSessionRepository;
 
     @Override
-    public PageDTO<UserInfoDTO> listPageByQuery(UserListPageQuery userListPageQuery) {
-        return null;
+    public PageDTO<UserInfoDTO> listPageByQuery(UserListPageQuery query) {
+        UserInfoQuery userInfoQuery = UserAppConvertor.toUserInfoQuery(query);
+        PageInfo<UserInfoDO> pageInfo = userInfoRepository.listPage(query.getPageNum(), query.getPageSize(), userInfoQuery);
+        return PageUtils.toPageDTO(pageInfo, UserAppConvertor::toUserInfoDTO);
     }
 
     @Override

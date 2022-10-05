@@ -16,12 +16,11 @@ public interface UopUserDAO {
 
     UopUser selectByPrimaryKey(Long id);
 
+    List<UopUser> selectByQuery(UserInfoQuery query);
+
+    UopUser selectOneByQuery(UserInfoQuery query);
+
     int updateByPrimaryKeySelective(UopUser record);
 
     int updateByPrimaryKey(UopUser record);
-
-    UopUser get(UserInfoQuery query);
-
-    List<UopUser> list(UserInfoQuery query);
-
 }

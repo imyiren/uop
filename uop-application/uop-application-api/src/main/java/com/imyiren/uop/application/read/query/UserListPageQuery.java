@@ -10,6 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author yiren
@@ -39,6 +40,12 @@ public class UserListPageQuery implements Serializable {
      * 用户名
      */
     private String username;
+    private String code;
+
+    /**
+     * 状态
+     */
+    private Integer state;
 
     /**
      * 手机号
@@ -53,6 +60,21 @@ public class UserListPageQuery implements Serializable {
     /**
      * 真实姓名
      */
-    private String realName;
+    private String nickname;
+
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+    private LocalDateTime createTimeStart;
+    private LocalDateTime createTimeEnd;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
+    private LocalDateTime updateTimeStart;
+    private LocalDateTime updateTimeEnd;
 
 }

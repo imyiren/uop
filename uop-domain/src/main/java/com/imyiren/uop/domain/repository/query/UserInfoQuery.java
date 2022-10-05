@@ -25,6 +25,8 @@ public class UserInfoQuery implements Serializable {
      */
     private String username;
 
+    private String nickname;
+
     /**
      * 加密后的密码
      */

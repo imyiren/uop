@@ -50,6 +50,8 @@ public class UserInfoDO implements Serializable {
      */
     private Integer state;
 
+    private UserExtraInfoDO extraInfo = new UserExtraInfoDO();
+
     /**
      * 删除状态 1-删除 2-未删除
      */

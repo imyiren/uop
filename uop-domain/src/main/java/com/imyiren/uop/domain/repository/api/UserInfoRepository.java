@@ -1,5 +1,6 @@
 package com.imyiren.uop.domain.repository.api;
 
+import com.github.pagehelper.PageInfo;
 import com.imyiren.uop.domain.repository.entity.UserInfoDO;
 import com.imyiren.uop.domain.repository.query.UserInfoQuery;
 
@@ -27,6 +28,13 @@ public interface UserInfoRepository {
      */
     List<UserInfoDO> list(UserInfoQuery query);
 
+    /**
+     * 分业查询
+     *
+     * @param query 查询条件
+     * @return 分页结果
+     */
+    PageInfo<UserInfoDO> listPage(Integer pageNum, Integer pageSize, UserInfoQuery query);
 
     /**
      * 保存 带ID就update 不带就insert

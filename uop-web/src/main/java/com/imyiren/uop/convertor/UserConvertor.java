@@ -6,6 +6,7 @@ import com.imyiren.uop.application.write.cmd.UserCreateCmd;
 import com.imyiren.uop.application.write.cmd.UserLoginCmd;
 import com.imyiren.uop.application.read.dto.UserInfoDTO;
 import com.imyiren.uop.application.write.dto.UserLoginDTO;
+import com.imyiren.uop.client.common.UserRoleEnum;
 import com.imyiren.uop.request.UserLoginRequest;
 import com.imyiren.uop.request.UserRegisterRequest;
 import com.imyiren.uop.vo.UserInfoVO;
@@ -15,6 +16,7 @@ import java.util.Objects;
 
 /**
  * 用户对象操作转换器
+ *
  * @author yiren
  */
 public abstract class UserConvertor {
@@ -53,17 +55,30 @@ public abstract class UserConvertor {
         userInfoVO.setPhone(userSession.getPhone());
         userInfoVO.setEmail(userSession.getEmail());
         userInfoVO.setState(userSession.getState());
-        // userInfoVO.setStateDesc();
-        if (userSession.getCode().startsWith("800")) {
-            userInfoVO.setRoleList(Lists.newArrayList("admin", "user"));
-            userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
-            userInfoVO.setTitle("超级管理员");
-        } else {
-            userInfoVO.setRoleList(Lists.newArrayList("user"));
-            userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
-            userInfoVO.setTitle("普通用户");
-        }
+        userInfoVO.setStateDesc(userSession.getStateDesc());
+        userInfoVO.setRoleList(userSession.getRoleList());
+        userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
+        userInfoVO.setTitle(UserRoleEnum.title(userSession.getRoleList()));
         userInfoVO.setWorkNo(userSession.getCode());
+        return userInfoVO;
+    }
+
+    public static UserInfoVO toUserInfoVO(UserInfoDTO userInfoDTO) {
+        if (Objects.isNull(userInfoDTO)) {
+            return null;
+        }
+        UserInfoVO userInfoVO = new UserInfoVO();
+        userInfoVO.setId(Objects.isNull(userInfoDTO.getId()) ? null : String.valueOf(userInfoDTO.getId()));
+        userInfoVO.setRealName(userInfoDTO.getNickname());
+        userInfoVO.setUsername(userInfoDTO.getUsername());
+        userInfoVO.setPhone(userInfoDTO.getPhone());
+        userInfoVO.setEmail(userInfoDTO.getEmail());
+        userInfoVO.setState(userInfoDTO.getState());
+        userInfoVO.setStateDesc(userInfoDTO.getStateDesc());
+        userInfoVO.setRoleList(userInfoDTO.getRoleList());
+        userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
+        userInfoVO.setTitle(UserRoleEnum.title(userInfoDTO.getRoleList()));
+        userInfoVO.setWorkNo(userInfoDTO.getCode());
         return userInfoVO;
     }
 

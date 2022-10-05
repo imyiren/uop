@@ -3,64 +3,61 @@
 <mapper namespace="com.imyiren.uop.infra.dal.dao.UopUserDAO">
   <resultMap id="BaseResultMap" type="com.imyiren.uop.infra.dal.po.UopUser">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="code" jdbcType="INTEGER" property="code" />
-    <result column="username" jdbcType="INTEGER" property="username" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
-    <result column="email" jdbcType="INTEGER" property="email" />
-    <result column="encrypted_pwd" jdbcType="INTEGER" property="encryptedPwd" />
-    <result column="nickname" jdbcType="INTEGER" property="nickname" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="encrypted_pwd" jdbcType="VARCHAR" property="encryptedPwd" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="extra_json" jdbcType="OTHER" property="extraJson" />
     <result column="deleted" jdbcType="INTEGER" property="deleted" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, code, username, phone, email, encrypted_pwd, nickname, `state`, deleted, create_time,
-    update_time
+    id, code, username, phone, email, encrypted_pwd, nickname, `state`, extra_json, deleted,
+    create_time, update_time
   </sql>
 
   <sql id="query">
-    <where>
-      <if test="id != null">AND `id` = #{id}</if>
-      <if test="code != null">AND `code` = #{code}</if>
-      <if test="username != null">AND `username` = #{username}</if>
-      <if test="encryptedPwd != null">AND `encrypted_pwd` = #{encryptedPwd}</if>
-      <if test="phone != null">AND `phone` = #{phone}</if>
-      <if test="email != null">AND `email` = #{email}</if>
-      <if test="state != null">AND `state` = #{state}</if>
-      <if test="deleted != null">AND `deleted` = #{deleted}</if>
-      <if test="createTime != null">AND `create_time` = #{createTime}</if>
-      <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+  <where>
+    <if test="id != null">AND `id` = #{id}</if>
+    <if test="code != null">AND `code` = #{code}</if>
+    <if test="username != null">AND `username` = #{username}</if>
+    <if test="nickname != null">AND `nickname` = #{nickname}</if>
+    <if test="encryptedPwd != null">AND `encrypted_pwd` = #{encryptedPwd}</if>
+    <if test="phone != null">AND `phone` = #{phone}</if>
+    <if test="email != null">AND `email` = #{email}</if>
+    <if test="state != null">AND `state` = #{state}</if>
+    <if test="deleted != null">AND `deleted` = #{deleted}</if>
+    <if test="createTime != null">AND `create_time` = #{createTime}</if>
+    <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
 
-      <if test="updateTimeStart != null">AND `update_time` &gt;= #{updateTimeStart}</if>
-      <if test="updateTimeEnd != null">AND `update_time` &lt;== #{updateTimeEnd}</if>
-      <if test="createTimeStart != null">AND `create_time` &gt;= #{createTimeStart}</if>
-      <if test="createTimeEnd != null">AND `create_time` &lt;= #{createTimeEnd}</if>
-    </where>
+    <if test="updateTimeStart != null">AND `update_time` &gt;= #{updateTimeStart}</if>
+    <if test="updateTimeEnd != null">AND `update_time` &lt;== #{updateTimeEnd}</if>
+    <if test="createTimeStart != null">AND `create_time` &gt;= #{createTimeStart}</if>
+    <if test="createTimeEnd != null">AND `create_time` &lt;= #{createTimeEnd}</if>
+  </where>
   </sql>
-
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from uop_user
     where id = #{id,jdbcType=BIGINT}
   </select>
-
-  <select id="get"   resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from uop_user
-    <include refid="query" />
-    limit 1
-  </select>
-
-  <select id="list"   resultMap="BaseResultMap">
+  <select id="selectByQuery" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from uop_user
     <include refid="query" />
   </select>
-
+  <select id="selectOneByQuery" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from uop_user
+    <include refid="query" /> limit 1
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from uop_user
     where id = #{id,jdbcType=BIGINT}
@@ -68,12 +65,12 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.imyiren.uop.infra.dal.po.UopUser" useGeneratedKeys="true">
     insert into uop_user (code, username, phone,
       email, encrypted_pwd, nickname,
-      `state`, deleted, create_time,
-      update_time)
-    values (#{code,jdbcType=INTEGER}, #{username,jdbcType=INTEGER}, #{phone,jdbcType=INTEGER},
-      #{email,jdbcType=INTEGER}, #{encryptedPwd,jdbcType=INTEGER}, #{nickname,jdbcType=INTEGER},
-      #{state,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
-      #{updateTime,jdbcType=TIMESTAMP})
+      `state`, extra_json, deleted,
+      create_time, update_time)
+    values (#{code,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+      #{email,jdbcType=VARCHAR}, #{encryptedPwd,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
+      #{state,jdbcType=INTEGER}, #{extraJson,jdbcType=OTHER}, #{deleted,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.imyiren.uop.infra.dal.po.UopUser" useGeneratedKeys="true">
     insert into uop_user
@@ -99,6 +96,9 @@
       <if test="state != null">
         `state`,
       </if>
+      <if test="extraJson != null">
+        extra_json,
+      </if>
       <if test="deleted != null">
         deleted,
       </if>
@@ -111,25 +111,28 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="code != null">
-        #{code,jdbcType=INTEGER},
+        #{code,jdbcType=VARCHAR},
       </if>
       <if test="username != null">
-        #{username,jdbcType=INTEGER},
+        #{username,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-        #{phone,jdbcType=INTEGER},
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
-        #{email,jdbcType=INTEGER},
+        #{email,jdbcType=VARCHAR},
       </if>
       <if test="encryptedPwd != null">
-        #{encryptedPwd,jdbcType=INTEGER},
+        #{encryptedPwd,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
-        #{nickname,jdbcType=INTEGER},
+        #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="state != null">
         #{state,jdbcType=INTEGER},
+      </if>
+      <if test="extraJson != null">
+        #{extraJson,jdbcType=OTHER},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=INTEGER},
@@ -146,25 +149,28 @@
     update uop_user
     <set>
       <if test="code != null">
-        code = #{code,jdbcType=INTEGER},
+        code = #{code,jdbcType=VARCHAR},
       </if>
       <if test="username != null">
-        username = #{username,jdbcType=INTEGER},
+        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-        phone = #{phone,jdbcType=INTEGER},
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
-        email = #{email,jdbcType=INTEGER},
+        email = #{email,jdbcType=VARCHAR},
       </if>
       <if test="encryptedPwd != null">
-        encrypted_pwd = #{encryptedPwd,jdbcType=INTEGER},
+        encrypted_pwd = #{encryptedPwd,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
-        nickname = #{nickname,jdbcType=INTEGER},
+        nickname = #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="state != null">
         `state` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="extraJson != null">
+        extra_json = #{extraJson,jdbcType=OTHER},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=INTEGER},
@@ -180,13 +186,14 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.imyiren.uop.infra.dal.po.UopUser">
     update uop_user
-    set code = #{code,jdbcType=INTEGER},
-      username = #{username,jdbcType=INTEGER},
-      phone = #{phone,jdbcType=INTEGER},
-      email = #{email,jdbcType=INTEGER},
-      encrypted_pwd = #{encryptedPwd,jdbcType=INTEGER},
-      nickname = #{nickname,jdbcType=INTEGER},
+    set code = #{code,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      encrypted_pwd = #{encryptedPwd,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
       `state` = #{state,jdbcType=INTEGER},
+      extra_json = #{extraJson,jdbcType=OTHER},
       deleted = #{deleted,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
