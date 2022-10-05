@@ -69,18 +69,18 @@ public class UserController {
     public Result listPage(
             @RequestParam(required = false) Integer pageSize,
             @RequestParam(required = false) Integer pageNum,
-            @RequestParam(required = false) String code,
             @RequestParam(required = false) String username,
-            @RequestParam(required = false) String nickname,
+            @RequestParam(required = false) String workNo,
+            @RequestParam(required = false) String realName,
             @RequestParam(required = false) Integer state
     ) {
         UserListPageQuery pageQuery = new UserListPageQuery();
         pageQuery.setPageNum(pageNum);
         pageQuery.setPageSize(pageSize);
-        pageQuery.setCode(code);
+        pageQuery.setCode(workNo);
         pageQuery.setUsername(username);
         pageQuery.setState(state);
-        pageQuery.setNickname(nickname);
+        pageQuery.setNickname(realName);
 
         PageDTO<UserInfoDTO> pageDTO = userInfoReadAppService.listPageByQuery(pageQuery);
         return PageUtils.toBizPageResult(pageDTO, UserConvertor::toUserInfoVO);

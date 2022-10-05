@@ -60,6 +60,7 @@ public abstract class UserConvertor {
         userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
         userInfoVO.setTitle(UserRoleEnum.title(userSession.getRoleList()));
         userInfoVO.setWorkNo(userSession.getCode());
+        userInfoVO.setCreateTime(userSession.getCreateTime());
         return userInfoVO;
     }
 
@@ -79,6 +80,7 @@ public abstract class UserConvertor {
         userInfoVO.setAvatarUrl("https://p.qqan.com/up/2021-2/16137992359659254.jpg");
         userInfoVO.setTitle(UserRoleEnum.title(userInfoDTO.getRoleList()));
         userInfoVO.setWorkNo(userInfoDTO.getCode());
+        userInfoVO.setCreateTime(userInfoDTO.getCreateTime());
         return userInfoVO;
     }
 

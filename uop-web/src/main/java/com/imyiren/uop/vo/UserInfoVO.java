@@ -3,6 +3,7 @@ package com.imyiren.uop.vo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -48,5 +49,9 @@ public class UserInfoVO implements Serializable {
     private List<String> roleList;
 
 
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
 
 }
