@@ -13,6 +13,7 @@ import com.imyiren.result.BizResults;
 import com.imyiren.result.base.BizResult;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,10 @@ public class OpenUserController {
     public BizResult<UserLoginVO> login(HttpServletRequest request, @RequestBody UserLoginRequest userLoginRequest) {
         UserLoginCmd userLoginCmd = UserConvertor.toUserLoginCmd(userLoginRequest);
         String loginIp = getIpAddress(request);
+        if (!StringUtils.isEmpty(loginIp)) {
+             loginIp = loginIp.trim().replace(",", "");
+            loginIp = loginIp.replace("127.0.0.1", "").trim();
+        }
         userLoginCmd.setLoginIp(loginIp);
         UserLoginDTO loginResult = userInfoWriteAppService.login(userLoginCmd);
         return BizResults.success(UserConvertor.toUserLoginVO(loginResult));
