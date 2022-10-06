@@ -13,8 +13,8 @@ public enum UserRoleEnum {
      * 权限
      */
     USER("user", "普通用户"),
-    SALE("sale",  "销售人员"),
-    EXPERIMENT("experiment", "实验相关人员"),
+    SALE("sale",  "前端人员"),
+    EXPERIMENT("experiment", "后端人员"),
 
     ADMIN("admin", "管理员"),
     ;
@@ -37,7 +37,7 @@ public enum UserRoleEnum {
             return of(roleList.get(0)).getDesc();
         }
         if (roleList.contains(SALE.getCode()) && roleList.contains(EXPERIMENT.getCode())) {
-            return "销售&实验人员";
+            return "前端&后端";
         }
         return of(roleList.get(0)).getDesc();
     }
