@@ -101,6 +101,12 @@ public class UserController {
 
     @PostMapping()
     public Result saveUser(@RequestBody @Validated UserSaveRequest request) {
+        if (!StringUtils.isEmpty(request.getPassword()) && request.getPassword().length() < 6) {
+            return BizResults.failed("密码长度必须大于等于6个字符");
+        }
+        if (!StringUtils.isEmpty(request.getUsername()) && request.getUsername().length() < 4) {
+            return BizResults.failed("用户名长度必须大于等于4个字符");
+        }
         UserSaveCmd userSaveCmd = UserConvertor.toUserSaveCmd(request);
         userInfoWriteAppService.saveUser(userSaveCmd);
         return BizResults.success();
@@ -110,6 +116,9 @@ public class UserController {
     public Result savePassword(@RequestBody @Validated UserSavePasswordRequest request) {
         if (StringUtils.isEmpty(request.getPassword()) || StringUtils.isEmpty(request.getNewPassword())) {
             return BizResults.failed("密码不能为空！");
+        }
+        if (!StringUtils.isEmpty(request.getNewPassword()) && request.getNewPassword().length() < 6) {
+            return BizResults.failed("密码长度必须大于等于6个字符");
         }
         // pre cehck
         UserGetQuery getQuery = new UserGetQuery();

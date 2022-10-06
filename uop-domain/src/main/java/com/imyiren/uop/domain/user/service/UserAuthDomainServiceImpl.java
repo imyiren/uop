@@ -1,5 +1,6 @@
 package com.imyiren.uop.domain.user.service;
 
+import com.imyiren.uop.client.common.UserStateEnum;
 import com.imyiren.uop.domain.repository.api.UserInfoRepository;
 import com.imyiren.uop.domain.repository.api.UserSessionRepository;
 import com.imyiren.uop.domain.repository.entity.UserInfoDO;
@@ -43,6 +44,11 @@ public class UserAuthDomainServiceImpl implements UserAuthDomainService {
         // 验证密码
         if (Objects.isNull(userInfo) || !PASSWORD_ENCODER.matches(event.getPassword(), userInfo.getEncryptedPwd())) {
             throw new BizRuntimeException(BizStateCodes.BIZ_ERROR, "用户名或密码不正确！");
+        }
+
+        // 校验状态
+        if (!Objects.equals(userInfo.getState(), UserStateEnum.ACTIVE.getCode())) {
+            throw new BizRuntimeException(BizStateCodes.BIZ_ERROR, "当前账号不可用！");
         }
 
         // 创建session
