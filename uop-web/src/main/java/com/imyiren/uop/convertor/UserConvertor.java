@@ -5,10 +5,13 @@ import com.imyiren.uop.application.read.dto.UserSessionInfoDTO;
 import com.imyiren.uop.application.write.cmd.UserCreateCmd;
 import com.imyiren.uop.application.write.cmd.UserLoginCmd;
 import com.imyiren.uop.application.read.dto.UserInfoDTO;
+import com.imyiren.uop.application.write.cmd.UserSaveCmd;
 import com.imyiren.uop.application.write.dto.UserLoginDTO;
 import com.imyiren.uop.client.common.UserRoleEnum;
 import com.imyiren.uop.request.UserLoginRequest;
 import com.imyiren.uop.request.UserRegisterRequest;
+import com.imyiren.uop.request.UserSavePasswordRequest;
+import com.imyiren.uop.request.UserSaveRequest;
 import com.imyiren.uop.vo.UserInfoVO;
 import com.imyiren.uop.vo.UserLoginVO;
 
@@ -98,4 +101,24 @@ public abstract class UserConvertor {
         userCreateCmd.setValidationCode(request.getValidationCode());
         return userCreateCmd;
     }
+
+    public static UserSaveCmd toUserSaveCmd(UserSaveRequest request) {
+        UserSaveCmd userSaveCmd = new UserSaveCmd();
+        userSaveCmd.setId(request.getId());
+        userSaveCmd.setNickname(request.getRealName());
+        userSaveCmd.setUsername(request.getUsername());
+        userSaveCmd.setPassword(request.getPassword());
+        userSaveCmd.setState(request.getState());
+        userSaveCmd.setRoleList(request.getRoleList());
+        return userSaveCmd;
+    }
+
+    public static UserSaveCmd toUserSaveCmd(UserSavePasswordRequest request) {
+        UserSaveCmd userSaveCmd = new UserSaveCmd();
+        userSaveCmd.setId(request.getId());
+        userSaveCmd.setPassword(request.getNewPassword());
+        return userSaveCmd;
+    }
+
+
 }

@@ -1,14 +1,14 @@
 package com.imyiren.uop.application.write;
 
+import com.imyiren.uop.application.convertor.UserAppConvertor;
+import com.imyiren.uop.application.read.dto.UserInfoDTO;
 import com.imyiren.uop.application.write.api.UserInfoWriteAppService;
-import com.imyiren.uop.application.write.cmd.UserCreateCmd;
-import com.imyiren.uop.application.write.cmd.UserDelaySessionExpireTimeCmd;
-import com.imyiren.uop.application.write.cmd.UserLoginCmd;
-import com.imyiren.uop.application.write.cmd.UserLogoutCmd;
+import com.imyiren.uop.application.write.cmd.*;
 import com.imyiren.uop.application.write.dto.UserCreateDTO;
 import com.imyiren.uop.application.write.dto.UserDelaySessionDTO;
 import com.imyiren.uop.application.write.dto.UserLoginDTO;
 import com.imyiren.uop.application.write.dto.UserLogoutDTO;
+import com.imyiren.uop.domain.repository.entity.UserInfoDO;
 import com.imyiren.uop.domain.user.event.UserSessionDelayEvent;
 import com.imyiren.uop.domain.validation.api.ValidationPicDomainService;
 import com.imyiren.uop.domain.validation.event.ValidatePicKeyAndCodeEvent;
@@ -20,6 +20,7 @@ import com.imyiren.result.error.BizRuntimeException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.StringUtils;
 
 /**
@@ -29,6 +30,7 @@ import org.springframework.util.StringUtils;
 @DubboService
 @AllArgsConstructor
 public class UserInfoWriteAppServiceImpl implements UserInfoWriteAppService {
+    private static final BCryptPasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
     private final UserAuthDomainService userAuthDomainService;
 
@@ -94,6 +96,13 @@ public class UserInfoWriteAppServiceImpl implements UserInfoWriteAppService {
         userDelaySession.setSuccess(userAuthDomainService.delaySessionExpireTime(event));
 
         return userDelaySession;
+    }
+
+    @Override
+    public UserInfoDTO saveUser(UserSaveCmd userSaveCmd) {
+        UserInfoDO userInfoDO = UserAppConvertor.toUserInfoDO(userSaveCmd);
+        UserInfoDO result = userAuthDomainService.saveUser(userInfoDO);
+        return UserAppConvertor.toUserInfoDTO(result);
     }
 
 

@@ -1,5 +1,6 @@
 package com.imyiren.uop.domain.user.api;
 
+import com.imyiren.uop.domain.repository.entity.UserInfoDO;
 import com.imyiren.uop.domain.user.event.CreateUserSessionEvent;
 import com.imyiren.uop.domain.user.event.DeleteUserSessionEvent;
 import com.imyiren.uop.domain.user.event.UserSessionDelayEvent;
@@ -31,4 +32,13 @@ public interface UserAuthDomainService {
      * @return 是否成功
      */
     boolean delaySessionExpireTime(UserSessionDelayEvent event);
+
+    /**
+     * 保存用户
+     *
+     * @param userInfoDO 用户信息
+     * @return 用户信息
+     */
+    UserInfoDO saveUser(UserInfoDO userInfoDO);
+
 }

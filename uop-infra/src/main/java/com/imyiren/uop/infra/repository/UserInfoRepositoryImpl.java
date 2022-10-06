@@ -61,10 +61,13 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
         UopUser uopUser = UserInfoRepoConvertor.toUopUser(user);
         if (Objects.isNull(user.getId())) {
             uopUserDAO.insertSelective(uopUser);
+            String code = String.format("1%05d", uopUser.getId());
+            uopUser.setCode(code);
+            uopUserDAO.updateByPrimaryKeySelective(uopUser);
             user.setId(uopUser.getId());
             return user;
         }
-        uopUserDAO.updateByPrimaryKeySelective(null);
+        uopUserDAO.updateByPrimaryKeySelective(uopUser);
         return user;
     }
 

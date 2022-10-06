@@ -4,6 +4,7 @@ import com.imyiren.uop.application.read.dto.UserInfoDTO;
 import com.imyiren.uop.application.read.dto.UserSessionInfoDTO;
 import com.imyiren.uop.application.read.query.UserGetQuery;
 import com.imyiren.uop.application.read.query.UserListPageQuery;
+import com.imyiren.uop.application.write.cmd.UserSaveCmd;
 import com.imyiren.uop.client.common.UserStateEnum;
 import com.imyiren.uop.domain.repository.entity.UserExtraInfoDO;
 import com.imyiren.uop.domain.repository.entity.UserInfoDO;
@@ -80,7 +81,17 @@ public class UserAppConvertor {
         userInfoQuery.setUpdateTimeStart(query.getUpdateTimeStart());
         userInfoQuery.setUpdateTimeEnd(query.getUpdateTimeEnd());
         return userInfoQuery;
+    }
 
+    public static UserInfoDO toUserInfoDO(UserSaveCmd userSaveCmd) {
+        UserInfoDO userInfoDO = new UserInfoDO();
+        userInfoDO.setId(userSaveCmd.getId());
+        userInfoDO.setUsername(userSaveCmd.getUsername());
+        userInfoDO.setNickname(userSaveCmd.getNickname());
+        userInfoDO.setEncryptedPwd(userSaveCmd.getPassword());
+        userInfoDO.setState(userSaveCmd.getState());
+        userInfoDO.getExtraInfo().setRoleList(userSaveCmd.getRoleList());
+        return userInfoDO;
 
     }
 }

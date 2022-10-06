@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -81,6 +82,17 @@ public class UserAuthDomainServiceImpl implements UserAuthDomainService {
         userSessionDO.setExpireTime(LocalDateTime.now().plusHours(5));
         userSessionRepository.save(userSessionDO);
         return true;
+    }
+
+    @Override
+    public UserInfoDO saveUser(UserInfoDO userInfoDO) {
+        if (!StringUtils.isEmpty(userInfoDO.getEncryptedPwd())) {
+            userInfoDO.setEncryptedPwd(PASSWORD_ENCODER.encode(userInfoDO.getEncryptedPwd()));
+        }
+        UserInfoDO save = userInfoRepository.save(userInfoDO);
+        UserInfoQuery query = new UserInfoQuery();
+        query.setId(save.getId());
+        return userInfoRepository.get(query);
     }
 
     public static void main(String[] args) {

@@ -6,7 +6,10 @@ import com.imyiren.uop.client.common.UserRoleEnum;
 import com.imyiren.uop.domain.repository.entity.UserExtraInfoDO;
 import com.imyiren.uop.domain.repository.entity.UserInfoDO;
 import com.imyiren.uop.infra.dal.po.UopUser;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+
+import java.util.Objects;
 
 /**
  * @author yiren
@@ -30,11 +33,13 @@ public abstract class UserInfoRepoConvertor {
             userInfoDO.setExtraInfo(userExtraInfoDO);
         } else {
             userInfoDO.setExtraInfo(JSONObject.parseObject(uopUser.getExtraJson(), UserExtraInfoDO.class));
+            if (CollectionUtils.isEmpty(userInfoDO.getExtraInfo().getRoleList())) {
+                userInfoDO.getExtraInfo().setRoleList(Lists.newArrayList(UserRoleEnum.USER.getCode()));
+            }
         }
         userInfoDO.setCreateTime(uopUser.getCreateTime());
         userInfoDO.setUpdateTime(uopUser.getUpdateTime());
         return userInfoDO;
-
     }
 
     public static UopUser toUopUser(UserInfoDO userInfoDO) {
@@ -46,13 +51,14 @@ public abstract class UserInfoRepoConvertor {
         uopUser.setEncryptedPwd(userInfoDO.getEncryptedPwd());
         uopUser.setPhone(userInfoDO.getPhone());
         uopUser.setState(userInfoDO.getState());
-        uopUser.setExtraJson(JSONObject.toJSONString(userInfoDO.getExtraInfo()));
+        if (Objects.nonNull(userInfoDO.getExtraInfo()) && !CollectionUtils.isEmpty(userInfoDO.getExtraInfo().getRoleList())) {
+            uopUser.setExtraJson(JSONObject.toJSONString(userInfoDO.getExtraInfo()));
+        }
         uopUser.setDeleted(userInfoDO.getDeleted());
         uopUser.setNickname(userInfoDO.getNickname());
         uopUser.setCreateTime(userInfoDO.getCreateTime());
         uopUser.setUpdateTime(userInfoDO.getUpdateTime());
         return uopUser;
-
     }
 
 }

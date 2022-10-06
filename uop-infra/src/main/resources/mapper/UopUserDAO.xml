@@ -35,7 +35,7 @@
     <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
 
     <if test="updateTimeStart != null">AND `update_time` &gt;= #{updateTimeStart}</if>
-    <if test="updateTimeEnd != null">AND `update_time` &lt;== #{updateTimeEnd}</if>
+    <if test="updateTimeEnd != null">AND `update_time` &lt;= #{updateTimeEnd}</if>
     <if test="createTimeStart != null">AND `create_time` &gt;= #{createTimeStart}</if>
     <if test="createTimeEnd != null">AND `create_time` &lt;= #{createTimeEnd}</if>
   </where>
