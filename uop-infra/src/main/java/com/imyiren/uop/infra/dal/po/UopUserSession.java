@@ -19,6 +19,7 @@ public class UopUserSession implements Serializable {
      * sessionId
      */
     private String sessionId;
+    private String loginIp;
 
     /**
      * 用户ID

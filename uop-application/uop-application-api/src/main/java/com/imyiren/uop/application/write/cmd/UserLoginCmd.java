@@ -32,4 +32,6 @@ public class UserLoginCmd implements Serializable {
     @NotEmpty(message = "验证码不能为空！")
     private String validationCode;
 
+
+    private String loginIp;
 }

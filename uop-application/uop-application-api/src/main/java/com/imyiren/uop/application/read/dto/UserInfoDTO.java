@@ -67,4 +67,9 @@ public class UserInfoDTO implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+
+    private String loginIp;
+
+    private LocalDateTime loginTime;
 }

@@ -39,7 +39,16 @@ public class UserInfoReadAppServiceImpl implements UserInfoReadAppService {
     public PageDTO<UserInfoDTO> listPageByQuery(UserListPageQuery query) {
         UserInfoQuery userInfoQuery = UserAppConvertor.toUserInfoQuery(query);
         PageInfo<UserInfoDO> pageInfo = userInfoRepository.listPage(query.getPageNum(), query.getPageSize(), userInfoQuery);
-        return PageUtils.toPageDTO(pageInfo, UserAppConvertor::toUserInfoDTO);
+        return PageUtils.toPageDTO(pageInfo, item->{
+            UserInfoDTO userInfoDTO = UserAppConvertor.toUserInfoDTO(item);
+            UserSessionQuery sessionQuery = new UserSessionQuery();
+            sessionQuery.setUserId(item.getId());
+            UserSessionDO userSessionDO = userSessionRepository.get(sessionQuery);
+            if (Objects.nonNull(userSessionDO)) {
+                userInfoDTO.setLoginIp(userSessionDO.getLoginIp());
+                userInfoDTO.setLoginTime(userSessionDO.getCreateTime());
+            }return userInfoDTO;
+        });
     }
 
     @Override

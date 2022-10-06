@@ -23,6 +23,8 @@ import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
+
 /**
  * @author yiren
  */
@@ -51,6 +53,7 @@ public class UserInfoWriteAppServiceImpl implements UserInfoWriteAppService {
         CreateUserSessionEvent createUserSessionEvent = new CreateUserSessionEvent();
         createUserSessionEvent.setUsername(cmd.getUsername());
         createUserSessionEvent.setPassword(cmd.getPassword());
+        createUserSessionEvent.setLoginIp(cmd.getLoginIp());
         String userSessionId = userAuthDomainService.createUserSession(createUserSessionEvent);
         if (StringUtils.isEmpty(userSessionId)) {
             throw new BizRuntimeException(BizStateCodes.BIZ_ERROR, "用户名或密码错误，请重试！");

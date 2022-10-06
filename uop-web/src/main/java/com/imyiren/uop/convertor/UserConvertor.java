@@ -84,6 +84,8 @@ public abstract class UserConvertor {
         userInfoVO.setTitle(UserRoleEnum.title(userInfoDTO.getRoleList()));
         userInfoVO.setWorkNo(userInfoDTO.getCode());
         userInfoVO.setCreateTime(userInfoDTO.getCreateTime());
+        userInfoVO.setLoginIp(userInfoDTO.getLoginIp());
+        userInfoVO.setLoginTime(userInfoDTO.getLoginTime());
         return userInfoVO;
     }
 

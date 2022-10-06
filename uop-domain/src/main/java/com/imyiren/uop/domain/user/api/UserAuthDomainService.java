@@ -15,7 +15,6 @@ public interface UserAuthDomainService {
      */
     String createUserSession(CreateUserSessionEvent event);
 
-
     /**
      * 校验用户名密码
      *

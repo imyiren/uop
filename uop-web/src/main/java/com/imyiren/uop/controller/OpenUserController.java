@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author yiren
  */
@@ -30,18 +32,42 @@ public class OpenUserController {
     private final UserInfoWriteAppService userInfoWriteAppService;
 
     @PostMapping("/login")
-    public BizResult<UserLoginVO> login(@RequestBody UserLoginRequest userLoginRequest) {
+    public BizResult<UserLoginVO> login(HttpServletRequest request, @RequestBody UserLoginRequest userLoginRequest) {
         UserLoginCmd userLoginCmd = UserConvertor.toUserLoginCmd(userLoginRequest);
+        String loginIp = getIpAddress(request);
+        userLoginCmd.setLoginIp(loginIp);
         UserLoginDTO loginResult = userInfoWriteAppService.login(userLoginCmd);
         return BizResults.success(UserConvertor.toUserLoginVO(loginResult));
     }
 
-    @PostMapping("/register")
-    public BizResult<UserCreateDTO> register(@RequestBody UserRegisterRequest request) {
-        UserCreateCmd cmd = UserConvertor.toUserCreateCmd(request);
-        log.info("register: request: {}.", cmd);
-        UserCreateDTO user = userInfoWriteAppService.createUser(cmd);
-        return BizResults.success(user);
+
+
+    public static String getIpAddress(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
+//
+//    @PostMapping("/register")
+//    public BizResult<UserCreateDTO> register(@RequestBody UserRegisterRequest request) {
+//        UserCreateCmd cmd = UserConvertor.toUserCreateCmd(request);
+//        log.info("register: request: {}.", cmd);
+//        UserCreateDTO user = userInfoWriteAppService.createUser(cmd);
+//        return BizResults.success(user);
+//    }
 
 }

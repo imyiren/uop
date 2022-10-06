@@ -19,7 +19,7 @@ public class UserSessionQuery implements Serializable {
     /**
      * 用户ID
      */
-    private String userId;
+    private Long userId;
 
     private LocalDateTime expireTimeStart;
 

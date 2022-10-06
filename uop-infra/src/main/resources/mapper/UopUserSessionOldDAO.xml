@@ -6,12 +6,13 @@
     <result column="session_id" jdbcType="VARCHAR" property="sessionId" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
     <result column="deleted" jdbcType="INTEGER" property="deleted" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, session_id, user_id, expire_time, deleted, create_time, update_time
+    id, session_id, user_id, expire_time, login_ip, deleted, create_time, update_time
   </sql>
 
   <sql id="query">
@@ -29,6 +30,7 @@
     <include refid="Base_Column_List" />
     from uop_user_session
     <include refid="query" />
+    order by create_time desc
     limit 1
   </select>
 

@@ -32,5 +32,8 @@ public class UserSessionDO implements Serializable {
     private LocalDateTime expireTime;
 
 
+    private String loginIp;
+
+    private LocalDateTime createTime;
 
 }

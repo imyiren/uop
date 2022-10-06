@@ -57,6 +57,7 @@ public class UserAuthDomainServiceImpl implements UserAuthDomainService {
         userSessionDO.setSessionId(sessionId);
         userSessionDO.setUserId(userInfo.getId());
         userSessionDO.setExpireTime(LocalDateTime.now().plusHours(5));
+        userSessionDO.setLoginIp(event.getLoginIp());
         userSessionRepository.save(userSessionDO);
         // create session to userInfo map.
         return sessionId;

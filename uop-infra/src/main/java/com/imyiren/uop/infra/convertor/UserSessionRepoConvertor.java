@@ -13,7 +13,9 @@ public final class UserSessionRepoConvertor {
         userSessionDO.setId(userSessionDO.getId());
         userSessionDO.setSessionId(userSession.getSessionId());
         userSessionDO.setUserId(userSession.getUserId());
+        userSessionDO.setLoginIp(userSession.getLoginIp());
         userSessionDO.setExpireTime(userSession.getExpireTime());
+        userSessionDO.setCreateTime(userSession.getCreateTime());
         return userSessionDO;
     }
 
@@ -22,6 +24,7 @@ public final class UserSessionRepoConvertor {
         uopUserSession.setId(userSession.getId());
         uopUserSession.setSessionId(userSession.getSessionId());
         uopUserSession.setUserId(userSession.getUserId());
+        uopUserSession.setLoginIp(userSession.getLoginIp());
         uopUserSession.setExpireTime(userSession.getExpireTime());
         return uopUserSession;
     }
