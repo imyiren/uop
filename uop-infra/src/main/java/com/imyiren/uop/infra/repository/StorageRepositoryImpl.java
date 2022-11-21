@@ -9,8 +9,14 @@ import com.imyiren.uop.infra.oss.client.UopOssClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+
+import static org.apache.commons.codec.CharEncoding.UTF_8;
 
 @Slf4j
 @Repository
@@ -36,7 +42,17 @@ public class StorageRepositoryImpl implements StorageRepository {
 
     @Override
     public StorageUploadResultDO upload(StorageUploadDO storageUpload) {
-        return uopOssClient.upload(storageUpload);
+        StorageUploadResultDO upload = uopOssClient.upload(storageUpload);
+        try {
+            if (!StringUtils.isEmpty(upload)) {
+                String encodeName = URLEncoder.encode(upload.getFilename(), StandardCharsets.UTF_8.toString());
+                upload.setUrl(upload.getUrl().replace(upload.getFilename(), encodeName));
+            }
+        } catch (UnsupportedEncodingException e) {
+            //
+            log.error("upload: error: ", e);
+        }
+        return upload;
     }
 
     @Override
